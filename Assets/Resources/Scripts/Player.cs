@@ -10,58 +10,44 @@ public class Player : TrueSyncBehaviour
     * @brief Key to set/get horizontal position from {@link TrueSyncInput}.
     **/
     private const byte INPUT_TAP_LOCATION = 0;
-
-
-    private TSTransform TSTransform;
-    private TSRigidBody TSRigidBody;
-
-    private TSVector lastTapInput = TSVector.zero;
-
-
-    /**
-    * @brief It is true if the ball is not dynamically instantiated.
-    **/
-    public bool createdRuntime;
-
-    [Tooltip("Gameobject prefab to be used as a placeholder for a line")]
-    [SerializeField]
-    private GameObject _linePrefab;
-
-    [Tooltip("Prefab for Player characters")]
-    [SerializeField]
-    private GameObject _characterPrefab;
+    
 
     [Tooltip("Gameobject prefab to be used as a position marker for where the player clicks")]
     [SerializeField]
     private GameObject _positionMarkerPrefab;
 
+    // FIXME: Put this in a separate script:
     [Tooltip("Distance from center of tap point to location of force applied to reactive objects")]
     [SerializeField]
     private FP _tapEffectRadius = new FP(3);
 
+    // FIXME: Put this in a separate script:
     [Tooltip("Amount of force applied to object near tapping")]
     [SerializeField]
     private FP _tapEffectForce = new FP(5);
 
+    // FIXME: Put this in a separate script:
     [Tooltip("Players spawn this distance from center")]
     [SerializeField]
     private float _playerSpawnDistanceFromCenter = 7.5f;
 
+    // FIXME: Put this in a separate script:
     [Tooltip("Materials used to display local player's highlight area")]
     [SerializeField]
     private Material _localPlayerHighlightMaterial;
 
+    // FIXME: Put this in a separate script:
     [Tooltip("Material used to display all other player's highlight areas")]
     [SerializeField]
     private Material _otherPlayerHighlightMaterial;
+
 
     public Mesh _areaHighlightMesh;
     public MeshCollider _areaHighlightMeshCollider;
     public MeshRenderer _areaHighlightMeshRenderer;
     public MeshFilter _areaHighlightMeshFilter;
 
-
-    private static LayerMask _lineLayerMask;	// Used for checking for line collisions, lines are on this layer.
+    // FIXME: Put static variables in a separate script
     private static LayerMask _areaHighlightlayerMask;
     private static List<Player> _playerList = new List<Player>();  // list of players in game
 
@@ -69,11 +55,6 @@ public class Player : TrueSyncBehaviour
     private static Dictionary<int, Player> _photonPlayerIDToPlayerDict = new Dictionary<int, Player>();
     private static float[] _intermediateBoundaryAngles = { 45f, 135f, 225f, 315f }; // Angles representing the corners on the screen
     private static float _distanceFromCenterToScreenEdge = 50f;
-
-    public GameObject backgroundGO;
-
-    private TSTransform _cameraTSTransform;
-
 
     private static List<TSRigidBody> _lineList = new List<TSRigidBody>();
     private Transform _line1;   // 1st line assigned to this player
@@ -138,7 +119,6 @@ public class Player : TrueSyncBehaviour
     {
         _playerList.Add(this);
 
-        _lineLayerMask = LayerMask.GetMask("AreaBoundaryLine");
         _areaHighlightlayerMask = LayerMask.GetMask("PlayerArea");
         _areaHighlightMesh = new Mesh();
         _areaHighlightMeshCollider = gameObject.AddComponent<MeshCollider>();
@@ -151,10 +131,6 @@ public class Player : TrueSyncBehaviour
         _areaHighlightMaterials[3] = Resources.Load("Materials/yellow", typeof(Material)) as Material;
 
         _areaHighlightMeshRenderer.material = Resources.Load("Materials/yellow", typeof(Material)) as Material;
-
-        _cameraTSTransform = Camera.main.GetComponent<TSTransform>();
-        
-        TSRigidBody = GetComponent<TSRigidBody>();
 
         if (_playerList.Count == 1)
         {
@@ -217,16 +193,8 @@ public class Player : TrueSyncBehaviour
 
             player._areaHighlightMeshFilter.sharedMesh = null;
             player._areaHighlightMeshFilter.sharedMesh = player._areaHighlightMesh;
-            //_areaHighlightMeshCollider.sharedMesh = null;
-            //_areaHighlightMeshCollider.sharedMesh = _areaHighlightMesh;
-
-
-            for (int j = 0; j <= trianglesList.Count - 1; j++)
-            {
-                if (j < trianglesList.Count - 1)
-                    Debug.DrawLine(vertexList[trianglesList[j]], vertexList[trianglesList[j + 1]], Color.magenta);
-            }
-
+            player._areaHighlightMeshCollider.sharedMesh = null;
+            player._areaHighlightMeshCollider.sharedMesh = player._areaHighlightMesh;
         }
     }
 
@@ -277,18 +245,11 @@ public class Player : TrueSyncBehaviour
     {
         // Adds {@link #lastJumpState} to the tracking system
         StateTracker.AddTracking(this);
-
-        TSTransform = this.GetComponent<TSTransform>();
         
         // if is first player then changes ball's color to black
         if (owner != null && owner.Id == 1)
         {
             //GetComponent<Renderer>().material.color = Color.black;
-        }
-
-        if (!createdRuntime)
-        {
-
         }
     }
 
@@ -298,7 +259,7 @@ public class Player : TrueSyncBehaviour
     **/
     public override void OnSyncedInput()
     {
-        if (createdRuntime) return;
+        TSVector lastTapInput = TSVector.zero;
         RaycastHit hit;
         if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f, _areaHighlightlayerMask))
             lastTapInput = hit.point.ToTSVector();
@@ -321,7 +282,6 @@ public class Player : TrueSyncBehaviour
             OnTapLocation(tapLocation);
 
         TSVector forceToApply = TSVector.zero;
-        TSTransform tst = GetComponent<TSTransform>();
 
         if (tapLocation != TSVector.zero)
         {
@@ -361,7 +321,6 @@ public class Player : TrueSyncBehaviour
 
         foreach (TSRigidBody thisLine in _lineList)
         {
-
             FP result = TSVector.Dot(thisLine.tsTransform.forward, tapLocation.normalized);
 
             if (result > closestResult)
