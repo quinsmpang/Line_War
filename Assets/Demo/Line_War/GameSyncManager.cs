@@ -5,42 +5,57 @@ using TrueSync;
 * @brief Manages boxes instantiation.
 **/
 public class GameSyncManager : TrueSyncBehaviour {
+    
+    [Tooltip("Distance from center of tap point to location of force applied to reactive objects")]
+    [SerializeField]
+    private FP _tapEffectRadius = new FP(3);
 
-    /**
-    * @brief Box's prefab.
-    **/
-    public GameObject boxPrefab;
+    public FP TapEffectRadius
+    {
+        get { return _tapEffectRadius; }
+        set { _tapEffectRadius = value; }
+    }
 
-    /**
-    * @brief Number of boxes to be place in X axis.
-    **/
-    public int numberOfBoxesX;
+    [Tooltip("Amount of force applied to object near tapping")]
+    [SerializeField]
+    private FP _tapEffectForce = new FP(5);
 
-    /**
-    * @brief Number of boxes to be place in Z axis.
-    **/
-    public int numberOfBoxesZ;
+    public FP TapEffectForce
+    {
+        get { return _tapEffectForce; }
+        set { _tapEffectForce = value; }
+    }
+
+    [Tooltip("Distance from center of screen to screen edge, used for sizing the highlighted player areas")]
+    private static float _distanceFromCenterToScreenEdge = 50f;
+
+    public float DistanceFromCenterToScreenEdge
+    {
+        get { return _distanceFromCenterToScreenEdge; }
+        set { _distanceFromCenterToScreenEdge = value; }
+    }
+
+    //[Tooltip("Players spawn this distance from center")]
+    //[SerializeField]
+    //private float _playerSpawnDistanceFromCenter = 7.5f;
+
+    //[Tooltip("Materials used to display local player's highlight area")]
+    //[SerializeField]
+    //private Material _localPlayerHighlightMaterial;
+
+    //[Tooltip("Material used to display all other player's highlight areas")]
+    //[SerializeField]
+    //private Material _otherPlayerHighlightMaterial;
+
+    public static GameSyncManager Instance;
 
     /**
     * @brief Initial setup when game is started.
     **/
     public override void OnSyncedStart() {
-        //CreateBoxes();
+        if (Instance == null) Instance = this;
     }
-
-    /**
-    * @brief Instantiates and places all boxes required by {@link #numberOfBoxesX} and {@link #numberOfBoxesZ}.
-    **/
-    void CreateBoxes() {
-        for (int i = 0; i < numberOfBoxesX; i++) {
-            for (int j = 0; j < numberOfBoxesZ; j++) {
-                GameObject box = TrueSyncManager.SyncedInstantiate(this.boxPrefab, TSVector.zero, TSQuaternion.identity);
-                TSRigidBody body = box.GetComponent<TSRigidBody>();
-                body.position = new TrueSync.TSVector(i * 2 - 5, 1, j * 2);
-            }
-        }
-    }
-
+    
     /**
     * @brief Logs a text when game is paused.
     **/

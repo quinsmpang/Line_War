@@ -10,55 +10,20 @@ public class Player : TrueSyncBehaviour
     * @brief Key to set/get horizontal position from {@link TrueSyncInput}.
     **/
     private const byte INPUT_TAP_LOCATION = 0;
-    
-
-    [Tooltip("Gameobject prefab to be used as a position marker for where the player clicks")]
-    [SerializeField]
-    private GameObject _positionMarkerPrefab;
-
-    // FIXME: Put this in a separate script:
-    [Tooltip("Distance from center of tap point to location of force applied to reactive objects")]
-    [SerializeField]
-    private FP _tapEffectRadius = new FP(3);
-
-    // FIXME: Put this in a separate script:
-    [Tooltip("Amount of force applied to object near tapping")]
-    [SerializeField]
-    private FP _tapEffectForce = new FP(5);
-
-    // FIXME: Put this in a separate script:
-    [Tooltip("Players spawn this distance from center")]
-    [SerializeField]
-    private float _playerSpawnDistanceFromCenter = 7.5f;
-
-    // FIXME: Put this in a separate script:
-    [Tooltip("Materials used to display local player's highlight area")]
-    [SerializeField]
-    private Material _localPlayerHighlightMaterial;
-
-    // FIXME: Put this in a separate script:
-    [Tooltip("Material used to display all other player's highlight areas")]
-    [SerializeField]
-    private Material _otherPlayerHighlightMaterial;
-
 
     public Mesh _areaHighlightMesh;
     public MeshCollider _areaHighlightMeshCollider;
     public MeshRenderer _areaHighlightMeshRenderer;
     public MeshFilter _areaHighlightMeshFilter;
 
-    // FIXME: Put static variables in a separate script
-    private static LayerMask _areaHighlightlayerMask;
-    private static List<Player> _playerList = new List<Player>();  // list of players in game
-
-    private static Dictionary<GameObject, Player> _areaHighlightMeshGOToPlayerDict = new Dictionary<GameObject, Player>();
-    private static Dictionary<int, Player> _photonPlayerIDToPlayerDict = new Dictionary<int, Player>();
-    private static float[] _intermediateBoundaryAngles = { 45f, 135f, 225f, 315f }; // Angles representing the corners on the screen
-    private static float _distanceFromCenterToScreenEdge = 50f;
-
-    private static List<TSRigidBody> _lineList = new List<TSRigidBody>();
     private Transform _line1;   // 1st line assigned to this player
     private Transform _line2;   // 2nd line assigned to this player
+
+    private static LayerMask _areaHighlightlayerMask;
+    private static List<Player> _playerList = new List<Player>();  // list of players in game
+    private static float[] _intermediateBoundaryAngles = { 45f, 135f, 225f, 315f }; // Angles representing the corners on the screen
+    private static GameObject PositionMarkerGO;
+    private static List<TSRigidBody> _lineList = new List<TSRigidBody>();
 
 
     private static void AdjustLineAssignments()
@@ -140,19 +105,17 @@ public class Player : TrueSyncBehaviour
         else if (_playerList.Count > 2)
             _lineList.Add(TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/prefab_Line") as GameObject, TSVector.up, TSQuaternion.identity).GetComponent<TSRigidBody>());
 
+        if (PositionMarkerGO == null)
+            PositionMarkerGO = Resources.Load("Prefabs/prefab_PositionMarker") as GameObject;
+
         AdjustLineAssignments();
         RepositionLines();
-        HighlightPlayerAreas();
     }
-
-    public Player GetPlayerWithPhotonPlayerID(int ID)
-    {
-        return _photonPlayerIDToPlayerDict[ID];
-    }
-
+    
 
     private static void HighlightPlayerAreas()
     {
+        float distanceFromCenterToScreenEdge = GameSyncManager.Instance.DistanceFromCenterToScreenEdge;
         for (int i = 0; i < _playerList.Count; i++)
         {
             Player player = _playerList[i];
@@ -165,18 +128,18 @@ public class Player : TrueSyncBehaviour
             player._areaHighlightMesh.Clear(); // erase the previous mesh
             player._areaHighlightMesh.subMeshCount = 1; // reset the submesh count
             float[] highlightAngles = GetPlayerAreaHighlightAnglesBetweenLines(player._line1, player._line2);
-            Vector3 vec = Quaternion.Euler(0f, player._line1.transform.eulerAngles.y + 90f, 0f) * Vector3.left * _distanceFromCenterToScreenEdge;
+            Vector3 vec = Quaternion.Euler(0f, player._line1.transform.eulerAngles.y + 90f, 0f) * Vector3.left * distanceFromCenterToScreenEdge;
             vertexList.Add(vec);
             trianglesList.Add(vertexList.Count - 1);
 
             foreach (float angle in highlightAngles) // Add any intermediate faces between line1 and line2
             {
-                vertexList.Add(Quaternion.Euler(0f, angle, 0f) * Vector3.left * _distanceFromCenterToScreenEdge);
+                vertexList.Add(Quaternion.Euler(0f, angle, 0f) * Vector3.left * distanceFromCenterToScreenEdge);
                 trianglesList.Add(vertexList.Count - 1);
                 trianglesList.Add(0);
                 trianglesList.Add(vertexList.Count - 1);
             }
-            vertexList.Add(Quaternion.Euler(0f, player._line2.transform.eulerAngles.y + 90f, 0f) * Vector3.left * _distanceFromCenterToScreenEdge);
+            vertexList.Add(Quaternion.Euler(0f, player._line2.transform.eulerAngles.y + 90f, 0f) * Vector3.left * distanceFromCenterToScreenEdge);
             trianglesList.Add(vertexList.Count - 1);
 
             Vector2[] uvs = new Vector2[player._areaHighlightMesh.vertices.Length];
@@ -280,25 +243,8 @@ public class Player : TrueSyncBehaviour
         // Take tapLocation and calculate what to do
         if (tapLocation != TSVector.zero)
             OnTapLocation(tapLocation);
-
-        TSVector forceToApply = TSVector.zero;
-
-        if (tapLocation != TSVector.zero)
-        {
-            //Debug.Log("tl: "+tapLocation+" tst: "+transform.position);
-        }
-
-
-        // Display the forward vectors of each line in cyan color:
-        foreach (TSRigidBody rb in _lineList)
-        {
-            Debug.DrawRay(rb.tsTransform.position.ToVector(), rb.tsTransform.forward.ToVector() * 10, Color.cyan, 0.05f);
-        }
-
+        
         HighlightPlayerAreas();
-
-        //controlledBody.AddForce(forceToApply, ForceMode.Impulse);
-        //lastCreateState = currentCreateState;
     }
 
 
@@ -309,15 +255,8 @@ public class Player : TrueSyncBehaviour
     /// <param name="tapLocation">location where tap/click took place</param>
     private void OnTapLocation(TSVector tapLocation)
     {
-
-        // -get angle of this tap, compare to each line's angle
-        // -find the closest line
-        // if the closest line is close enough for a tap effect, apply the tap effect
-
-        FP tapAngle = TSVector.up.AngleBetween(TSVector.forward, tapLocation);
         TSRigidBody closestLine = _lineList[0];
-        //FP closestResult = new FP(360);
-        FP closestResult = new FP(-1);
+        FP closestResult = new FP(-1); // DOT product of -1, farthest possible value to check direction of a vector
 
         foreach (TSRigidBody thisLine in _lineList)
         {
@@ -331,164 +270,24 @@ public class Player : TrueSyncBehaviour
         }
 
         // We have the closest line, determine if it's close enough for effect
-        //TSVector pointOfForce = closestLine.tsTransform.forward * tapLocation.magnitude;
-        FP p = TSVector.Dot(closestLine.tsTransform.forward, tapLocation.normalized);
-
         // Point on line nearest tap contact is made
         TSVector linePoint = closestLine.tsTransform.forward * tapLocation.magnitude;
-
-        if (_tapEffectRadius >= TSVector.Distance(linePoint, tapLocation))
+        
+        if (GameSyncManager.Instance.TapEffectRadius >= TSVector.Distance(linePoint, tapLocation))
         {
             FP direction = TSVector.Cross(tapLocation.normalized, closestLine.tsTransform.forward).y;
-            closestLine.AddTorque(TSVector.up * direction * _tapEffectForce);
+            closestLine.AddTorque(TSVector.up * direction * GameSyncManager.Instance.TapEffectForce);
         }
 
-        /*
-        if (Physics.Raycast(Camera.main.ScreenPointToRay(tapLocation), out hit, 50f, _areaHighlightlayerMask))
+        // Shows where click took place (position marker):
+        GameObject positionMarker = TrueSyncManager.SyncedInstantiate(PositionMarkerGO, tapLocation, TSQuaternion.identity);
+        positionMarker.transform.position = tapLocation.ToVector();
+        positionMarker.name = "Position Marker";    // Identify this marker game object in unity editor
+
+        Renderer rend = positionMarker.GetComponent<Renderer>();
+        DOTween.ToAlpha(() => rend.material.color, x => rend.material.color = x, 0, 5f).OnComplete(() =>
         {
-            TSRigidBody.AddForce(((transform.position - hit.point).normalized * 100).ToTSVector());
-            PhysicsManager.instance.
-            /*
-            if (!Physics.CheckSphere(hit.point, _tapRadiusCheck, _lineLayerMask))
-            {
-                if (_areaHighlightMeshGOToPlayerDict.ContainsKey(hit.collider.gameObject))
-                {
-                    Line closestLine = _areaHighlightMeshGOToPlayerDict[hit.collider.gameObject].GetClosestLine(hit.point);
-                    float clickAng = new Vector2(hit.point.z, hit.point.x).GetAngle();
-                    // FIXME: Get line angle here:
-                    //float lineAng = (float)closestLine.TrueAngle.ToDouble();
-                    //double dir = (Mathf.Abs(clickAng - lineAng) > 180 ? 1 : -1) * (clickAng > lineAng ? 1 : -1);
-                    // FIXME: Set line's angular velocity here:
-                    //closestLine.AngularVelocity += FNum.Create(dir * _tapEffectForce / 50);
-                }
-
-                // Shows where click took place:
-                GameObject positionMarker = GameObject.Instantiate(_positionMarkerPrefab);
-                positionMarker.transform.position = hit.point;
-                positionMarker.name = "Position Marker";    // Identify this marker game object in unity editor
-                Destroy(positionMarker.GetComponent<SphereCollider>(), 1f);
-                Renderer rend = positionMarker.GetComponent<Renderer>();
-                DOTween.ToAlpha(() => rend.material.color, x => rend.material.color = x, 0, 5f).OnComplete(() =>
-                {
-                    Destroy(positionMarker);
-                });
-            }
-            */
+            TrueSyncManager.Destroy(positionMarker);
+        });
     }
-    }
-
-
-/*
-    public PhotonPlayer PhotonPlayer { get; set; }
-    public GameObject CharacterGO { get; set; }
-    public Line Line1 { get; set; }
-    public Line Line2 { get; set; }
-    public GameObject AreaHighlightMeshGO { get; set; }
-    public Mesh AreaHighlightMesh { get; set; }
-    public Material AreaHighlighMeshMaterial { get; set; }
-    public MeshFilter AreaHighlightMeshFilter { get; set; }
-    public MeshRenderer AreaHighlightMeshRenderer { get; set; }
-    public MeshCollider AreaHighLightMeshCollider { get; set; }
-
-    public int num;
-
-    public TrueSync.FP AngleDiff { get; private set; }
-
-    private static int playerNum = 0;
-
-
-
-    public Player(int photonPlayerID)
-    {
-        this.PhotonPlayer = PhotonPlayer.Find(photonPlayerID);
-        this.AreaHighlightMeshGO = new GameObject("AreaHighlightGO");
-        this.AreaHighlightMeshGO.layer = LayerMask.NameToLayer("PlayerArea");
-        this.AreaHighlightMeshFilter = AreaHighlightMeshGO.AddComponent<MeshFilter>();
-        this.AreaHighlightMeshFilter.mesh = new Mesh();
-        this.AreaHighlightMeshRenderer = AreaHighlightMeshGO.AddComponent<MeshRenderer>();
-        this.AreaHighlightMeshRenderer.material = AreaHighlighMeshMaterial;
-        this.AreaHighlightMesh = AreaHighlightMeshFilter.mesh;
-        this.AreaHighLightMeshCollider = AreaHighlightMeshGO.AddComponent<MeshCollider>();
-        this.AreaHighLightMeshCollider.sharedMesh = AreaHighlightMesh;
-        num = playerNum++;
-    }
-    */
-/*
-    // FIXME: Make this method deterministic
-    public Line GetClosestLine(Vector3 point)
-    {
-    
-        return Vector3.Distance(Line1.child.position, point) < Vector3.Distance(Line2.child.position, point) ? Line1 : Line2;
-    }
-    */
-
-//  public void UpdatePosition(float distanceFromCenter)
-//  {
-/*
-    TrueSync.FP L1angle = Line1.TSTransform.eulerAngles.y;
-    TrueSync.FP L2angle = Line2.TSTransform.eulerAngles.y;
-    if (L2angle < L1angle)
-        L2angle += Line.Limit360;
-
-    // not used in this method, but used to measure angle space for when player loses
-    // (I don't like side effects, but this a decent solution since it's related to position)
-    AngleDiff = L2angle - L1angle;
-
-    TrueSync.FP posAngle = (L1angle + L2angle) / 2;
-    if (posAngle > Line.Limit360)
-        posAngle -= Line.Limit360;
-
-    CharacterGO.transform.position = Quaternion.AngleAxis(posAngle.AsFloat(), Vector3.up) * Vector3.forward * distanceFromCenter;
-    */
-//    }
-
-
-/*
-public Player(int photonPlayerID, int characterPhotonViewID, GameObject line1, GameObject line2, Material material)
-{
-
-    this.Line1 = line1;
-    this.Line2 = line2;
-    this.CharacterGO = PhotonView.Find(characterPhotonViewID).gameObject;
-    this.AreaHighlightMeshGO = new GameObject("AreaHighlightGO");
-    this.AreaHighlightMeshGO.layer = LayerMask.NameToLayer("PlayerArea");
-    this.AreaHighlightMeshFilter = AreaHighlightMeshGO.AddComponent<MeshFilter>();
-    this.AreaHighlightMeshGO.AddComponent<MeshRenderer>().material = material;
-    this.AreaHighlighMeshMaterial = material;
-    this.AreaHighlightMesh = new Mesh();
-    this.AreaHighlightMesh.vertices = new Vector3[5];
-
-    AreaHighlightMeshFilter.mesh = AreaHighlightMesh;
-
-    num = playerNum++;
-}
-*/
-
-
-public static class ExtensionMethods
-{
-    public static float GetAngle(this Vector2 vector2)
-    {
-        float result = (Mathf.Atan2(vector2.y, vector2.x) + Mathf.PI * 2) * Mathf.Rad2Deg;
-        if (result > 360)
-            result -= 360;
-        else if (result < 0)
-            result += 360;
-        return result;
-    }
-
-    public static float AngleBetweenAboutAxis(Vector3 v1, Vector3 v2, Vector3 n)
-    {
-        return Mathf.Atan2(
-            Vector3.Dot(n, Vector3.Cross(v1, v2)),
-            Vector3.Dot(v1, v2)) * Mathf.Rad2Deg;
-    }
-
-    public static FP AngleBetween(this TSVector n, TSVector v1, TSVector v2)
-    {
-        return TSMath.Atan2(
-            TSVector.Dot(n, TSVector.Cross(v1, v2)),
-            TSVector.Dot(v1, v2)) * TSMath.Rad2Deg;
-    }
-
 }
