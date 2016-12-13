@@ -1,0 +1,47 @@
+Initialize engine version: 5.4.2f2 (b7e030c65c9b)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: AMD FirePro M5100 FireGL V (ID=0x6821)
+    Vendor:   ATI
+    VRAM:     2026 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\Assembly-CSharp-firstpass.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\Assembly-CSharp-firstpass.dll into Unity Child Domain
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\DOTween.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\DOTween.dll into Unity Child Domain
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\Photon3Unity3D.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\Photon3Unity3D.dll into Unity Child Domain
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\TrueSync.dll (this message is harmless)
+Loading C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\TrueSync.dll into Unity Child Domain
+- Completed reload, in  0.227 seconds
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\Jayson\Documents\Unity Projects\Line_War\test_Data\Managed\System.dll (this message is harmless)
+OnLevelWasLoaded was found on PhotonHandler
+This message has been deprecated and will be removed in a later version of Unity.
+Add a delegate to SceneManager.sceneLoaded instead to get notifications after scene loading has completed
+ 
+(Filename:  Line: 375)
+
+desktop: 1920x1080 60Hz; virtual: 1920x1080 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.646989 ms
+Setting up 2 worker threads for Enlighten.
+  Thread -> id: 18bc -> priority: 1 
+  Thread -> id: 2d54 -> priority: 1 
+Best region found in PlayerPrefs. Connecting to: usw
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
