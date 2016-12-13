@@ -19,6 +19,8 @@ public class Player : TrueSyncBehaviour
     private Transform _line1;   // 1st line assigned to this player
     private Transform _line2;   // 2nd line assigned to this player
 
+    private Transform _characterTS;
+
     private static LayerMask _areaHighlightlayerMask;
     private static List<Player> _playerList = new List<Player>();  // list of players in game
     private static float[] _intermediateBoundaryAngles = { 45f, 135f, 225f, 315f }; // Angles representing the corners on the screen
@@ -51,12 +53,6 @@ public class Player : TrueSyncBehaviour
     }
 
 
-    void Awake()
-    {
-        
-        
-    }
-
     /// <summary>
     /// RepositionLines - repositions the player lines evenly with a calculated angle determined by the number of players
     /// </summary>
@@ -83,6 +79,9 @@ public class Player : TrueSyncBehaviour
     void Start()
     {
         _playerList.Add(this);
+        Debug.Log("CharacterPrefab: "+PlayerConfig.Instance.CharacterPrefab);
+        GameObject go = GameObject.Instantiate(PlayerConfig.Instance.CharacterPrefab);
+        _characterTS = go.transform;
 
         _areaHighlightlayerMask = LayerMask.GetMask("PlayerArea");
         _areaHighlightMesh = new Mesh();
@@ -115,7 +114,7 @@ public class Player : TrueSyncBehaviour
 
     private static void HighlightPlayerAreas()
     {
-        float distanceFromCenterToScreenEdge = GameSyncManager.Instance.DistanceFromCenterToScreenEdge;
+        float distanceFromCenterToScreenEdge = PlayerConfig.Instance.DistanceFromCenterToScreenEdge;
         for (int i = 0; i < _playerList.Count; i++)
         {
             Player player = _playerList[i];
@@ -124,6 +123,7 @@ public class Player : TrueSyncBehaviour
             List<Vector3> vertexList = new List<Vector3>();
             vertexList.Add(Vector3.zero); // create the 1st vertex in the center
             trianglesList.Add(0); // Add the 1st vertex to the list
+
 
             player._areaHighlightMesh.Clear(); // erase the previous mesh
             player._areaHighlightMesh.subMeshCount = 1; // reset the submesh count
@@ -245,6 +245,21 @@ public class Player : TrueSyncBehaviour
             OnTapLocation(tapLocation);
         
         HighlightPlayerAreas();
+
+        UpdatePlayerPosition();
+    }
+
+
+    private void UpdatePlayerPosition()
+    {
+        Vector3 dir = (_line1.forward + _line2.forward).normalized; // Find direction between lines
+
+        // Calculate which side of the player area, if negative then player needs to be on other side
+        float dot = Vector3.Dot(Vector3.up, Vector3.Cross(_line1.forward, _line2.forward));
+        dot = (dot > 0) ? 1 : -1;
+
+        _characterTS.position = dir * PlayerConfig.Instance.CharacterDistanceFromCenter * dot;
+        _characterTS.LookAt(new Vector3(0, 0, 0));
     }
 
 

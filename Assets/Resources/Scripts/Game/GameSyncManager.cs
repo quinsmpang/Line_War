@@ -16,6 +16,7 @@ public class GameSyncManager : TrueSyncBehaviour {
         set { _tapEffectRadius = value; }
     }
 
+
     [Tooltip("Amount of force applied to object near tapping")]
     [SerializeField]
     private FP _tapEffectForce = new FP(5);
@@ -26,14 +27,6 @@ public class GameSyncManager : TrueSyncBehaviour {
         set { _tapEffectForce = value; }
     }
 
-    [Tooltip("Distance from center of screen to screen edge, used for sizing the highlighted player areas")]
-    private static float _distanceFromCenterToScreenEdge = 50f;
-
-    public float DistanceFromCenterToScreenEdge
-    {
-        get { return _distanceFromCenterToScreenEdge; }
-        set { _distanceFromCenterToScreenEdge = value; }
-    }
 
     //[Tooltip("Players spawn this distance from center")]
     //[SerializeField]

@@ -55,8 +55,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011746862134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 4.5}
-  m_LocalScale: {x: 1, y: 1, z: 8}
+  m_LocalPosition: {x: 0, y: 0, z: 8.5}
+  m_LocalScale: {x: 1, y: 1, z: 16}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014189123136}
@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010875792104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.3869915, y: 0.5, z: 2.0898285}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -173,15 +173,15 @@ MonoBehaviour:
     z:
       _serializedValue: 0
     w:
-      _serializedValue: 0
+      _serializedValue: 4294967296
   _scale:
     x:
-      _serializedValue: 0
+      _serializedValue: 4294967296
     y:
-      _serializedValue: 0
+      _serializedValue: 4294967296
     z:
-      _serializedValue: 0
-  _serialized: 0
+      _serializedValue: 4294967296
+  _serialized: 1
   tsCollider: {fileID: 0}
   tsParent: {fileID: 0}
 --- !u!114 &114000012080657898
@@ -228,5 +228,5 @@ MonoBehaviour:
       _serializedValue: 4294967296
     z:
       _serializedValue: 4294967296
-  tsTransform: {fileID: 0}
+  tsTransform: {fileID: 114000011670607654}
   _size: {x: 1, y: 1, z: 1}
