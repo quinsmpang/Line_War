@@ -43,17 +43,20 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
   m_Materials:
   - {fileID: 2100000, guid: ed79d071825cc4ec5b2e5ef86bc1ecea, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 1
-  m_ReflectionProbeUsage: 1
   m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
   m_PreserveUVs: 1
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
+  m_SelectedWireframeHidden: 0
   m_MinimumChartSize: 4
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
@@ -87,7 +90,15 @@ MonoBehaviour:
       _serializedValue: 0
     z:
       _serializedValue: 0
-  radius: 0.5
+  lossyScale:
+    x:
+      _serializedValue: 4294967296
+    y:
+      _serializedValue: 4294967296
+    z:
+      _serializedValue: 4294967296
+  tsTransform: {fileID: 0}
+  _radius: 0.5
 --- !u!114 &11464748
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,8 +118,11 @@ MonoBehaviour:
   localOwner:
     id: 0
     name: 
+  _tsTransform: {fileID: 0}
+  controlledBody: {fileID: 0}
   createdRuntime: 0
   prefab: {fileID: 127454}
+  lastCreateState: 0
 --- !u!114 &11489160
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -144,6 +158,8 @@ MonoBehaviour:
     z:
       _serializedValue: 0
   _serialized: 0
+  tsCollider: {fileID: 0}
+  tsParent: {fileID: 0}
 --- !u!114 &11492010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -155,12 +171,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8561a4124465f743903b76d8cf232a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mass:
+  _mass:
     _serializedValue: 0
-  useGravity: 1
-  isKinematic: 0
-  interpolate: 0
-  isColliderOnly: 0
+  _useGravity: 1
+  _isKinematic: 0
+  interpolation: 0
   freezeZAxis: 0
 --- !u!1001 &100100000
 Prefab:
