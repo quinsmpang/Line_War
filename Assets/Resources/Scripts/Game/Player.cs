@@ -79,9 +79,7 @@ public class Player : TrueSyncBehaviour
     void Start()
     {
         _playerList.Add(this);
-        Debug.Log("CharacterPrefab: "+PlayerConfig.Instance.CharacterPrefab);
-        GameObject go = GameObject.Instantiate(PlayerConfig.Instance.CharacterPrefab);
-        _characterTS = go.transform;
+        _characterTS = GameObject.Instantiate(PlayerConfig.Instance.CharacterPrefab).transform;
 
         _areaHighlightlayerMask = LayerMask.GetMask("PlayerArea");
         _areaHighlightMesh = new Mesh();
