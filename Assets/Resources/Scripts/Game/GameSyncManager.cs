@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using TrueSync;
 
 /**
@@ -6,39 +7,6 @@ using TrueSync;
 **/
 public class GameSyncManager : TrueSyncBehaviour {
     
-    [Tooltip("Distance from center of tap point to location of force applied to reactive objects")]
-    [SerializeField]
-    private FP _tapEffectRadius = new FP(3);
-
-    public FP TapEffectRadius
-    {
-        get { return _tapEffectRadius; }
-        set { _tapEffectRadius = value; }
-    }
-
-
-    [Tooltip("Amount of force applied to object near tapping")]
-    [SerializeField]
-    private FP _tapEffectForce = new FP(5);
-
-    public FP TapEffectForce
-    {
-        get { return _tapEffectForce; }
-        set { _tapEffectForce = value; }
-    }
-
-
-    //[Tooltip("Players spawn this distance from center")]
-    //[SerializeField]
-    //private float _playerSpawnDistanceFromCenter = 7.5f;
-
-    //[Tooltip("Materials used to display local player's highlight area")]
-    //[SerializeField]
-    //private Material _localPlayerHighlightMaterial;
-
-    //[Tooltip("Material used to display all other player's highlight areas")]
-    //[SerializeField]
-    //private Material _otherPlayerHighlightMaterial;
 
     public static GameSyncManager Instance;
 
@@ -48,7 +16,12 @@ public class GameSyncManager : TrueSyncBehaviour {
     public override void OnSyncedStart() {
         if (Instance == null) Instance = this;
     }
-    
+
+    public override void OnSyncedUpdate()
+    {
+        Player.AfterUpdate();
+    }
+
     /**
     * @brief Logs a text when game is paused.
     **/

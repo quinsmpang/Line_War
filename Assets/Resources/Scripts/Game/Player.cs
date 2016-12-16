@@ -67,7 +67,7 @@ public class Player : TrueSyncBehaviour
         for (int index = 0; index < _lineList.Count; index++)
         {
             TSRigidBody rb = _lineList[index];
-            rb.MovePosition(new TSVector(0,1,0));
+            rb.MovePosition(new TSVector(0,5,0));
             //rb.angularVelocity = TSVector.up;
             rb.tsTransform.rotation = TSQuaternion.AngleAxis(index * lineAngle, TSVector.up);
             rb.gameObject.name = "Line " + index;
@@ -121,7 +121,6 @@ public class Player : TrueSyncBehaviour
             List<Vector3> vertexList = new List<Vector3>();
             vertexList.Add(Vector3.zero); // create the 1st vertex in the center
             trianglesList.Add(0); // Add the 1st vertex to the list
-
 
             player._areaHighlightMesh.Clear(); // erase the previous mesh
             player._areaHighlightMesh.subMeshCount = 1; // reset the submesh count
@@ -241,12 +240,16 @@ public class Player : TrueSyncBehaviour
         // Take tapLocation and calculate what to do
         if (tapLocation != TSVector.zero)
             OnTapLocation(tapLocation);
-        
-        HighlightPlayerAreas();
 
         UpdatePlayerPosition();
     }
 
+
+    public static void AfterUpdate()
+    {
+        ApplyDragOnLines();
+        HighlightPlayerAreas();
+    }
 
     private void UpdatePlayerPosition()
     {
@@ -258,6 +261,14 @@ public class Player : TrueSyncBehaviour
 
         _characterTS.position = dir * PlayerConfig.Instance.CharacterDistanceFromCenter * dot;
         _characterTS.LookAt(new Vector3(0, 0, 0));
+    }
+
+    private static void ApplyDragOnLines()
+    {
+        for (int index = 0; index < _lineList.Count; index++)
+        {
+            _lineList[index].angularVelocity = _lineList[index].angularVelocity.normalized * PlayerConfig.Instance.LineFriction.GetVelocity(_lineList[index].angularVelocity.magnitude);
+        }
     }
 
 
@@ -285,11 +296,20 @@ public class Player : TrueSyncBehaviour
         // We have the closest line, determine if it's close enough for effect
         // Point on line nearest tap contact is made
         TSVector linePoint = closestLine.tsTransform.forward * tapLocation.magnitude;
-        
-        if (GameSyncManager.Instance.TapEffectRadius >= TSVector.Distance(linePoint, tapLocation))
+        FP distanceToLine = TSVector.Distance(linePoint, tapLocation);
+        FP tapEffectRadius = PlayerConfig.Instance.TapEffectRadius;
+        FP minTapDistance = PlayerConfig.Instance.MinTapDistance;
+        FP direction = TSVector.Cross(tapLocation.normalized, closestLine.tsTransform.forward).y;
+        FP effect;
+
+        if (distanceToLine < minTapDistance) // if tapped on line, penalty
         {
-            FP direction = TSVector.Cross(tapLocation.normalized, closestLine.tsTransform.forward).y;
-            closestLine.AddTorque(TSVector.up * direction * GameSyncManager.Instance.TapEffectForce);
+            closestLine.AddTorque(TSVector.down * direction * PlayerConfig.Instance.PenaltyEffectForce);
+        }
+        else if (tapEffectRadius >= distanceToLine) // if tapped within range, but not on line
+        {
+            effect = 1 - distanceToLine / (tapEffectRadius + minTapDistance);
+            closestLine.AddTorque(TSVector.up * direction * PlayerConfig.Instance.TapEffectForce * effect);
         }
 
         // Shows where click took place (position marker):

@@ -358,10 +358,6 @@ MonoBehaviour:
   localOwner:
     id: 0
     name: 
-  _tapEffectRadius:
-    _serializedValue: 12884901888
-  _tapEffectForce:
-    _serializedValue: 21474836480
 --- !u!114 &693565050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -376,6 +372,16 @@ MonoBehaviour:
   _characterPrefab: {fileID: 1000013355413534, guid: c533f41c7cfe2fe4d8a20a2e54b59f15,
     type: 2}
   _characterDistanceFromCenter: 10
+  _tapEffectRadius:
+    _serializedValue: 25769803776
+  _minTapDistance:
+    _serializedValue: 6442450944
+  _tapEffectForce:
+    _serializedValue: 107374182400
+  _penaltyEffectForce:
+    _serializedValue: 214748364800
+  LineFriction:
+    _dragCoefficient: 0.15
 --- !u!1 &893320831
 GameObject:
   m_ObjectHideFlags: 0
@@ -625,7 +631,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1090796581}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 41.8, z: -0}
+  m_LocalPosition: {x: 0, y: 25, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
@@ -731,6 +737,7 @@ GameObject:
   - 114: {fileID: 1437894622}
   - 114: {fileID: 1437894627}
   - 65: {fileID: 1437894628}
+  - 114: {fileID: 1437894629}
   m_Layer: 9
   m_Name: Ground
   m_TagString: Untagged
@@ -761,11 +768,11 @@ MonoBehaviour:
       _serializedValue: 0
   lossyScale:
     x:
-      _serializedValue: 214748364800
+      _serializedValue: 644245094400
     y:
       _serializedValue: 4294967296
     z:
-      _serializedValue: 214748364800
+      _serializedValue: 644245094400
   tsTransform: {fileID: 1437894627}
   _size: {x: 1, y: 1, z: 1}
 --- !u!114 &1437894623
@@ -782,7 +789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mass:
     _serializedValue: 0
-  _useGravity: 1
+  _useGravity: 0
   _isKinematic: 1
   interpolation: 0
   freezeZAxis: 0
@@ -832,7 +839,7 @@ Transform:
   m_GameObject: {fileID: 1437894621}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 50, y: 1, z: 50}
+  m_LocalScale: {x: 150, y: 1, z: 150}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -866,11 +873,11 @@ MonoBehaviour:
       _serializedValue: 4294967296
   _scale:
     x:
-      _serializedValue: 214748364800
+      _serializedValue: 644245094400
     y:
       _serializedValue: 4294967296
     z:
-      _serializedValue: 214748364800
+      _serializedValue: 644245094400
   _serialized: 1
   tsCollider: {fileID: 0}
   tsParent: {fileID: 0}
@@ -886,3 +893,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1437894629
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1437894621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75e3edb6c498d04482a7157d8813725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friction:
+    _serializedValue: 2147483648
+  restitution:
+    _serializedValue: 0

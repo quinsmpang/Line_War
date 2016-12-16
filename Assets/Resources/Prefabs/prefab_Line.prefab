@@ -24,6 +24,8 @@ GameObject:
   - 114: {fileID: 114000011670607654}
   - 114: {fileID: 114000014008931266}
   - 114: {fileID: 114000012080657898}
+  - 114: {fileID: 114000013092931096}
+  - 114: {fileID: 114000012716932778}
   m_Layer: 8
   m_Name: prefab_Line
   m_TagString: Untagged
@@ -55,8 +57,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011746862134}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 8.5}
-  m_LocalScale: {x: 1, y: 1, z: 16}
+  m_LocalPosition: {x: 0, y: 0, z: 16}
+  m_LocalScale: {x: 1, y: 1, z: 32}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 4000014189123136}
@@ -68,8 +70,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010875792104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -2.2955475, y: 0.5, z: 2.394474}
+  m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000010023078402}
@@ -139,7 +141,7 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010875792104}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!33 &33000011668490112
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -160,11 +162,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _position:
     x:
-      _serializedValue: 0
+      _serializedValue: -9859301376
     y:
-      _serializedValue: 0
+      _serializedValue: 2147483648
     z:
-      _serializedValue: 0
+      _serializedValue: 10284187648
   _rotation:
     x:
       _serializedValue: 0
@@ -178,7 +180,7 @@ MonoBehaviour:
     x:
       _serializedValue: 4294967296
     y:
-      _serializedValue: 4294967296
+      _serializedValue: 2147483648
     z:
       _serializedValue: 4294967296
   _serialized: 1
@@ -197,10 +199,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _mass:
     _serializedValue: 4294967296
-  _useGravity: 0
+  _useGravity: 1
   _isKinematic: 0
   interpolation: 0
   freezeZAxis: 0
+--- !u!114 &114000012716932778
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010875792104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6603cef5921010148af7e0a734ac9b93, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfPlayers: 0
+  ownerIndex: -1
+  owner:
+    id: 0
+    name: 
+  localOwner:
+    id: 0
+    name: 
+  _currentVelocity:
+    _serializedValue: 0
+--- !u!114 &114000013092931096
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010875792104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f75e3edb6c498d04482a7157d8813725, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  friction:
+    _serializedValue: 4294967296
+  restitution:
+    _serializedValue: 4294967296
 --- !u!114 &114000014008931266
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -225,8 +263,8 @@ MonoBehaviour:
     x:
       _serializedValue: 4294967296
     y:
-      _serializedValue: 4294967296
+      _serializedValue: 2147483648
     z:
       _serializedValue: 4294967296
   tsTransform: {fileID: 114000011670607654}
-  _size: {x: 1, y: 1, z: 1}
+  _size: {x: 2, y: 2, z: 2}
