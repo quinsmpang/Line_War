@@ -377,9 +377,9 @@ MonoBehaviour:
   _minTapDistance:
     _serializedValue: 6442450944
   _tapEffectForce:
-    _serializedValue: 107374182400
+    _serializedValue: 42949672960
   _penaltyEffectForce:
-    _serializedValue: 214748364800
+    _serializedValue: 64424509440
   LineFriction:
     _dragCoefficient: 0.15
 --- !u!1 &893320831

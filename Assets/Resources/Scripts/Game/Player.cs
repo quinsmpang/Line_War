@@ -299,8 +299,8 @@ public class Player : TrueSyncBehaviour
         FP distanceToLine = TSVector.Distance(linePoint, tapLocation);
         FP tapEffectRadius = PlayerConfig.Instance.TapEffectRadius;
         FP minTapDistance = PlayerConfig.Instance.MinTapDistance;
-        FP direction = TSVector.Cross(tapLocation.normalized, closestLine.tsTransform.forward).y;
-        FP effect;
+        FP direction = TSVector.Cross(tapLocation.normalized, closestLine.tsTransform.forward).normalized.y;
+        FP effect = FP.One;
 
         if (distanceToLine < minTapDistance) // if tapped on line, penalty
         {
@@ -308,7 +308,7 @@ public class Player : TrueSyncBehaviour
         }
         else if (tapEffectRadius >= distanceToLine) // if tapped within range, but not on line
         {
-            effect = 1 - distanceToLine / (tapEffectRadius + minTapDistance);
+            effect = 1 - (distanceToLine - minTapDistance) / tapEffectRadius;
             closestLine.AddTorque(TSVector.up * direction * PlayerConfig.Instance.TapEffectForce * effect);
         }
 
