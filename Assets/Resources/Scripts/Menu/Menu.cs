@@ -374,13 +374,19 @@ public class Menu : PunBehaviour {
 	}
 
 	private void ActivePanel(PanelType panelType) {
+		this.nickPanel.SetActive (panelType == PanelType.Nick ? true : false);
 		this.infoText.gameObject.SetActive (panelType == PanelType.Info ? true : false);
+		this.matchPanel.SetActive (panelType == PanelType.Match ? true : false);
 
 		this.mainPanel.SetActive (panelType == PanelType.Main ? true : false);
-		this.nickPanel.SetActive (panelType == PanelType.Nick ? true : false);
-		this.matchPanel.SetActive (panelType == PanelType.Match ? true : false);
+
 		this.multiplayerPanel.SetActive (panelType == PanelType.Multiplayer ? true : false);
         this.replayPanel.SetActive(panelType == PanelType.Replay ? true : false);
+
+		if (panelType == PanelType.Match) {
+			mainPanel.SetActive (true);
+		}
+		Debug.Log (panelType);
     }
 
 }
