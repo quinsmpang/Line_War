@@ -2,16 +2,16 @@
 using System.Collections;
 
 public class DataLoader : MonoBehaviour {
-	public string[] players;
+	public string[] characters;
 
 	// Use this for initialization
 	IEnumerator Start () {
-		WWW playerData = new WWW("http://localhost/linewar/player.php");
-		yield return playerData;
-		string playerDataString = playerData.text;
-		print (playerDataString);
-		players = playerDataString.Split (';');
-		print (GetDataValue(players[1], "Name:"));
+		WWW charactersData = new WWW("http://localhost/linewar/characters.php");
+		yield return charactersData;
+		string charactersDataString = charactersData.text;
+		print (charactersDataString);
+		characters = charactersDataString.Split (';');
+		print (GetDataValue(characters[0], "Name:"));
 	}
 
 	string GetDataValue(string data, string index) {

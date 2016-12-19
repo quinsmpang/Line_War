@@ -2263,6 +2263,7 @@ GameObject:
   - 114: {fileID: 400027850}
   - 114: {fileID: 400027851}
   - 114: {fileID: 400027852}
+  - 114: {fileID: 400027853}
   m_Layer: 0
   m_Name: MenuController
   m_TagString: Untagged
@@ -2363,7 +2364,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4d2c8a7c02c6fc4e98840154f40cc14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  characters: []
+--- !u!114 &400027853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 400027848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fcfbb29825f1b94e91fa00e41ff72b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputPlayertype: 
+  inputPlayername: 
+  inputPlayerpassword: 
 --- !u!1 &406394333
 GameObject:
   m_ObjectHideFlags: 0
