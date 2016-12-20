@@ -373,15 +373,15 @@ MonoBehaviour:
     type: 2}
   _characterDistanceFromCenter: 10
   _tapEffectRadius:
-    _serializedValue: 25769803776
+    _serializedValue: 12884901888
   _minTapDistance:
-    _serializedValue: 6442450944
+    _serializedValue: 4294967296
   _tapEffectForce:
     _serializedValue: 42949672960
   _penaltyEffectForce:
-    _serializedValue: 64424509440
+    _serializedValue: 0
   LineFriction:
-    _dragCoefficient: 0.15
+    _dragCoefficient: 1
 --- !u!1 &893320831
 GameObject:
   m_ObjectHideFlags: 0
