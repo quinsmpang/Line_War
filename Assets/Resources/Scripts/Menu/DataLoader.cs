@@ -11,7 +11,7 @@ public class DataLoader : MonoBehaviour {
 		string charactersDataString = charactersData.text;
 		print (charactersDataString);
 		characters = charactersDataString.Split (';');
-		print (GetDataValue(characters[0], "Name:"));
+		print (GetDataValue(characters[1], "Name:"));
 	}
 
 	string GetDataValue(string data, string index) {
