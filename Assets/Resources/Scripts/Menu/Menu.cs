@@ -386,7 +386,7 @@ public class Menu : PunBehaviour {
 		if (panelType == PanelType.Match) {
 			mainPanel.SetActive (true);
 		}
-		Debug.Log (panelType);
+		Debug.Log ("Current screen: " + panelType);
     }
 
 }
