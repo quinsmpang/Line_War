@@ -16,7 +16,10 @@ public class Player : TrueSyncBehaviour
     public MeshRenderer _areaHighlightMeshRenderer;
     public MeshFilter _areaHighlightMeshFilter;
 
+    [SerializeField]
     private Transform _line1;   // 1st line assigned to this player
+
+    [SerializeField]
     private Transform _line2;   // 2nd line assigned to this player
 
     private Transform _characterTS;
@@ -28,28 +31,19 @@ public class Player : TrueSyncBehaviour
     private static List<TSRigidBody> _lineList = new List<TSRigidBody>();
 
 
+
     private static void AdjustLineAssignments()
     {
-        for(int index = 0; index < _playerList.Count; index++)
+        int playerCount = _playerList.Count;
+        for (int i = playerCount - 1; i >= 0; i--)
         {
-            if (index == 0)
-            {
-                _playerList[0]._line1 = _lineList[0].transform;
-                _playerList[0]._line2 = _lineList[1].transform;
-            }
-            else if (index == 1)
-            {
-                _playerList[1]._line1 = _lineList[1].transform;
-                _playerList[1]._line2 = _lineList[0].transform;
-            }
+            if (i == playerCount - 1) // last player gets a special assignment for it's line2
+                _playerList[i]._line2 = _lineList[0].transform;
             else
-            {
-                _playerList[index]._line1 = _lineList[_lineList.Count - 1].transform;
-                _playerList[index]._line2 = _lineList[0].transform;
-                _playerList[index - 1]._line2 = _lineList[_lineList.Count - 1].transform;
-            }
+                _playerList[i]._line2 = _lineList[i+1].transform;
+
+            _playerList[i]._line1 = _lineList[i].transform;
         }
-        
     }
 
 
@@ -74,26 +68,20 @@ public class Player : TrueSyncBehaviour
         }
     }
 
-    private static Material[] _areaHighlightMaterials = new Material[4];
-
     void Start()
     {
         _playerList.Add(this);
+        this.name = "player " + _playerList.Count;
         _characterTS = GameObject.Instantiate(PlayerConfig.Instance.CharacterPrefab).transform;
+
+        _characterTS.name = "character player " + _playerList.Count;
 
         _areaHighlightlayerMask = LayerMask.GetMask("PlayerArea");
         _areaHighlightMesh = new Mesh();
         _areaHighlightMeshCollider = gameObject.AddComponent<MeshCollider>();
         _areaHighlightMeshRenderer = gameObject.AddComponent<MeshRenderer>();
         _areaHighlightMeshFilter = gameObject.AddComponent<MeshFilter>();
-
-        _areaHighlightMaterials[0] = Resources.Load("Materials/blue", typeof(Material)) as Material;
-        _areaHighlightMaterials[1] = Resources.Load("Materials/green", typeof(Material)) as Material;
-        _areaHighlightMaterials[2] = Resources.Load("Materials/red", typeof(Material)) as Material;
-        _areaHighlightMaterials[3] = Resources.Load("Materials/yellow", typeof(Material)) as Material;
-
-        _areaHighlightMeshRenderer.material = Resources.Load("Materials/yellow", typeof(Material)) as Material;
-
+        
         if (_playerList.Count == 1)
         {
             _lineList.Add(TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/prefab_Line") as GameObject, TSVector.up, TSQuaternion.identity).GetComponent<TSRigidBody>());
@@ -116,7 +104,8 @@ public class Player : TrueSyncBehaviour
         for (int i = 0; i < _playerList.Count; i++)
         {
             Player player = _playerList[i];
-            player._areaHighlightMeshRenderer.material = _areaHighlightMaterials[i];
+            player._areaHighlightMeshRenderer.material = PlayerConfig.Instance.PlayerAreaMaterials[i];
+
             List <int> trianglesList = new List<int>();
             List<Vector3> vertexList = new List<Vector3>();
             vertexList.Add(Vector3.zero); // create the 1st vertex in the center
@@ -291,6 +280,11 @@ public class Player : TrueSyncBehaviour
                 closestResult = result;
                 closestLine = thisLine;
             }
+        }
+
+        if (closestLine.angularVelocity.magnitude > 0)
+        {
+            return;
         }
 
         // We have the closest line, determine if it's close enough for effect
