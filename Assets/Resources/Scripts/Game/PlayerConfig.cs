@@ -95,9 +95,12 @@ public class PlayerConfig : MonoBehaviour {
         }
     }
 
-    [Tooltip("Materials used for player areas, position of material represents material used for same player's position. Game can only support a player count up to the number of items in this array.")]
-    public Material[] PlayerAreaMaterials;
+    
+    [Tooltip("Material used for the local player hightlight area")]
+    public Material LocalPlayerAreaMaterial;
 
+    [Tooltip("Material used for all the remote player highlight areas")]
+    public Material RemotePlayerAreaMaterial;
 
 
     public static PlayerConfig Instance;

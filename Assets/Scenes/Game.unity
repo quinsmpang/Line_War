@@ -382,13 +382,10 @@ MonoBehaviour:
     _serializedValue: 0
   LineFriction:
     _dragCoefficient: 1
-  PlayerAreaMaterials:
-  - {fileID: 2100000, guid: 3ad27dd8ae564484e8dbe1ff62165979, type: 2}
-  - {fileID: 2100000, guid: c046a99a55eae4467aa73f40caf9abdf, type: 2}
-  - {fileID: 2100000, guid: ed79d071825cc4ec5b2e5ef86bc1ecea, type: 2}
-  - {fileID: 2100000, guid: a7b7bb335e1284f419767cb7f9f8e7cb, type: 2}
-  - {fileID: 2100000, guid: 3cb03bbbaad673948b61d468eb5e361f, type: 2}
-  - {fileID: 2100000, guid: 2d75d3eea63ac427bba0d400b6c86f8e, type: 2}
+  LocalPlayerAreaMaterial: {fileID: 2100000, guid: c046a99a55eae4467aa73f40caf9abdf,
+    type: 2}
+  RemotePlayerAreaMaterial: {fileID: 2100000, guid: a2fde61a805a16f478adbcb09877e0fa,
+    type: 2}
 --- !u!1 &893320831
 GameObject:
   m_ObjectHideFlags: 0

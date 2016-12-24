@@ -30,6 +30,7 @@ public class Player : TrueSyncBehaviour
     private static GameObject PositionMarkerGO;
     private static List<TSRigidBody> _lineList = new List<TSRigidBody>();
 
+    public static TSPlayerInfo LocalPlayer;
 
 
     private static void AdjustLineAssignments()
@@ -104,7 +105,14 @@ public class Player : TrueSyncBehaviour
         for (int i = 0; i < _playerList.Count; i++)
         {
             Player player = _playerList[i];
-            player._areaHighlightMeshRenderer.material = PlayerConfig.Instance.PlayerAreaMaterials[i];
+            if (player.localOwner.Id == player.owner.Id)
+            {
+                player._areaHighlightMeshRenderer.material = PlayerConfig.Instance.LocalPlayerAreaMaterial;
+            }
+            else
+            {
+                player._areaHighlightMeshRenderer.material = PlayerConfig.Instance.RemotePlayerAreaMaterial;
+            }
 
             List <int> trianglesList = new List<int>();
             List<Vector3> vertexList = new List<Vector3>();
@@ -193,6 +201,8 @@ public class Player : TrueSyncBehaviour
     **/
     public override void OnSyncedStart()
     {
+        LocalPlayer = this.localOwner;
+
         // Adds {@link #lastJumpState} to the tracking system
         StateTracker.AddTracking(this);
         
@@ -213,7 +223,7 @@ public class Player : TrueSyncBehaviour
         RaycastHit hit;
         if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f))
         {
-            if (hit.collider.name == gameObject.name) // Only register tap if tapping on local player's area
+            if (hit.collider.gameObject == gameObject) // Only register tap if tapping on local player's area
             {
                 lastTapInput = hit.point.ToTSVector();
             }
