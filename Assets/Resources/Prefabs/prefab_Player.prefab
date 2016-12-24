@@ -59,15 +59,9 @@ MonoBehaviour:
   localOwner:
     id: 0
     name: 
-  _positionMarkerPrefab: {fileID: 0}
-  _tapEffectRadius:
-    _serializedValue: 12884901888
-  _tapEffectForce:
-    _serializedValue: 21474836480
-  _playerSpawnDistanceFromCenter: 7.5
-  _localPlayerHighlightMaterial: {fileID: 0}
-  _otherPlayerHighlightMaterial: {fileID: 0}
   _areaHighlightMesh: {fileID: 0}
   _areaHighlightMeshCollider: {fileID: 0}
   _areaHighlightMeshRenderer: {fileID: 0}
   _areaHighlightMeshFilter: {fileID: 0}
+  _line1: {fileID: 0}
+  _line2: {fileID: 0}

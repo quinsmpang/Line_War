@@ -37,7 +37,7 @@ public class Player : TrueSyncBehaviour
         int playerCount = _playerList.Count;
         for (int i = playerCount - 1; i >= 0; i--)
         {
-            if (i == playerCount - 1) // last player gets a special assignment for it's line2
+            if (i == playerCount - 1 && playerCount > 1) // last player gets a special assignment for its line2, unless there's only 1 player
                 _playerList[i]._line2 = _lineList[0].transform;
             else
                 _playerList[i]._line2 = _lineList[i+1].transform;
@@ -136,8 +136,9 @@ public class Player : TrueSyncBehaviour
             player._areaHighlightMesh.triangles = trianglesList.ToArray();
             player._areaHighlightMesh.uv = uvs;
 
-            player._areaHighlightMesh.RecalculateNormals();
-            player._areaHighlightMesh.Optimize();
+            Vector3[] normals = new Vector3[player._areaHighlightMesh.vertexCount];
+            for (int n = 0; n < normals.Length; n++) normals[n] = Vector3.up;
+            player._areaHighlightMesh.normals = normals;
             player._areaHighlightMesh.RecalculateBounds();
 
             player._areaHighlightMeshFilter.sharedMesh = null;
@@ -210,10 +211,13 @@ public class Player : TrueSyncBehaviour
     {
         TSVector lastTapInput = TSVector.zero;
         RaycastHit hit;
-        if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f, _areaHighlightlayerMask))
-            lastTapInput = hit.point.ToTSVector();
-        else
-            lastTapInput = TSVector.zero;
+        if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f))
+        {
+            if (hit.collider.name == gameObject.name) // Only register tap if tapping on local player's area
+            {
+                lastTapInput = hit.point.ToTSVector();
+            }
+        }
 
         TrueSyncInput.SetTSVector(INPUT_TAP_LOCATION, lastTapInput);
     }
@@ -282,10 +286,8 @@ public class Player : TrueSyncBehaviour
             }
         }
 
-        if (closestLine.angularVelocity.magnitude > 0)
-        {
+        if (closestLine.angularVelocity.magnitude > 0) // exit this method if line is moving, can't hit lines while they move
             return;
-        }
 
         // We have the closest line, determine if it's close enough for effect
         // Point on line nearest tap contact is made
