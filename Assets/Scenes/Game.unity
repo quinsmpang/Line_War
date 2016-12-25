@@ -375,7 +375,7 @@ MonoBehaviour:
   _tapEffectRadius:
     _serializedValue: 21474836480
   _minTapDistance:
-    _serializedValue: 4294967296
+    _serializedValue: 6442450944
   _tapEffectForce:
     _serializedValue: 107374182400
   _penaltyEffectForce:
@@ -386,6 +386,8 @@ MonoBehaviour:
     type: 2}
   RemotePlayerAreaMaterial: {fileID: 2100000, guid: a2fde61a805a16f478adbcb09877e0fa,
     type: 2}
+  MinTapDistanceFromPrevious:
+    _serializedValue: 4294967296
 --- !u!1 &893320831
 GameObject:
   m_ObjectHideFlags: 0

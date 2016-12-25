@@ -102,6 +102,9 @@ public class PlayerConfig : MonoBehaviour {
     [Tooltip("Material used for all the remote player highlight areas")]
     public Material RemotePlayerAreaMaterial;
 
+    [Tooltip("Minimum tap distance from previous tap required for new tap to register")]
+    public FP MinTapDistanceFromPrevious;
+
 
     public static PlayerConfig Instance;
 

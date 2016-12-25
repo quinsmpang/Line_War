@@ -30,7 +30,7 @@ public class Player : TrueSyncBehaviour
     private static GameObject PositionMarkerGO;
     private static List<TSRigidBody> _lineList = new List<TSRigidBody>();
 
-    public static TSPlayerInfo LocalPlayer;
+    private TSVector lastValidTapLocation = TSVector.one * 1000000;
 
 
     private static void AdjustLineAssignments()
@@ -201,8 +201,6 @@ public class Player : TrueSyncBehaviour
     **/
     public override void OnSyncedStart()
     {
-        LocalPlayer = this.localOwner;
-
         // Adds {@link #lastJumpState} to the tracking system
         StateTracker.AddTracking(this);
         
@@ -274,13 +272,7 @@ public class Player : TrueSyncBehaviour
         }
     }
 
-
-    /// <summary>
-    /// OnTapLocation - call this to handle distributing and processing taps across a synchronized network game session
-    /// Responds to taps and decides what to do
-    /// </summary>
-    /// <param name="tapLocation">location where tap/click took place</param>
-    private void OnTapLocation(TSVector tapLocation)
+    private void EffectNearestLine(TSVector tapLocation)
     {
         TSRigidBody closestLine = _lineList[0];
         FP closestResult = new FP(-1); // DOT product of -1, farthest possible value to check direction of a vector
@@ -317,16 +309,39 @@ public class Player : TrueSyncBehaviour
             effect = 1 - (distanceToLine - minTapDistance) / tapEffectRadius;
             closestLine.AddTorque(TSVector.up * direction * PlayerConfig.Instance.TapEffectForce * effect);
         }
+    }
 
+    /// <summary>
+    /// OnTapLocation - call this to handle distributing and processing taps across a synchronized network game session
+    /// Responds to taps and decides what to do
+    /// </summary>
+    /// <param name="tapLocation">location where tap/click took place</param>
+    private void OnTapLocation(TSVector tapLocation)
+    {
         // Shows where click took place (position marker):
         GameObject positionMarker = TrueSyncManager.SyncedInstantiate(PositionMarkerGO, tapLocation, TSQuaternion.identity);
         positionMarker.transform.position = tapLocation.ToVector();
         positionMarker.name = "Position Marker";    // Identify this marker game object in unity editor
-
+        
+        TSTransform tst = positionMarker.GetComponent<TSTransform>();
+        tst.scale = TSVector.one * PlayerConfig.Instance.MinTapDistance;
         Renderer rend = positionMarker.GetComponent<Renderer>();
+
+        if (TSVector.Distance(lastValidTapLocation, tapLocation) >= PlayerConfig.Instance.MinTapDistanceFromPrevious)
+        {
+            EffectNearestLine(tapLocation);
+            rend.material.color = Color.black;
+        }
+        else
+        {
+            rend.material.color = Color.red;
+        }
+
         DOTween.ToAlpha(() => rend.material.color, x => rend.material.color = x, 0, 5f).OnComplete(() =>
         {
             TrueSyncManager.Destroy(positionMarker);
         });
+
+        lastValidTapLocation = tapLocation;
     }
 }
