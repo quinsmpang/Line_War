@@ -300,6 +300,7 @@ public class Menu : PunBehaviour {
 
 	// When connected to Photon Lobby, disable nickname editing and messages text, enables room list
 	public override void OnJoinedLobby () {
+		PhotonNetwork.playerName = this.nickname;
 		ActivePanel (PanelType.Match);
 	}
 
