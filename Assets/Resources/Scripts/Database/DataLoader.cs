@@ -6,7 +6,7 @@ public class DataLoader : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
-		WWW charactersData = new WWW("http://localhost/linewar/characters.php");
+		WWW charactersData = new WWW("http://ivocunha.com/db_characters.php");
 		yield return charactersData;
 		string charactersDataString = charactersData.text;
 		print (charactersDataString);

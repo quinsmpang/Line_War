@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class Login : MonoBehaviour {
-	string LoginURL = "http://localhost/linewar/login.php";
+	string LoginURL = "http://ivocunha.com/db_login.php";
 	public Button LoginPlayerButton;
 
 	public Text inputPlayername;
