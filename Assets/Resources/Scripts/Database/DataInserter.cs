@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class DataInserter : MonoBehaviour {
-	string RegisterPlayerURL = "http://ivocunha.com/db_addplayer.php";
+	string RegisterPlayerURL = "https://linewar.000webhostapp.com/db_addplayer.php";
 	public Button RegisterPlayerButton;
 
 	public string inputPlayertype;
@@ -20,17 +20,22 @@ public class DataInserter : MonoBehaviour {
 
 	}
 
-	public void RegisterPlayer(string type, Text playername, Text password) {
+	public IEnumerator RegisterPlayer(string type, Text playername, Text password) {
 		WWWForm form = new WWWForm ();
 		form.AddField ("post_player_type", type);
 		form.AddField ("post_player_name", playername.text);
 		form.AddField ("post_player_password", password.text);
 
 		WWW www = new WWW (RegisterPlayerURL, form);
+
+		yield return www;
+
+		print (www.text);
+
 	}
 
 	public void RegisterButton () {
-		RegisterPlayer (inputPlayertype, inputPlayername, inputPlayerpassword);
-		//print ("Player created");
+		StartCoroutine (RegisterPlayer (inputPlayertype, inputPlayername, inputPlayerpassword));
+		// print ("Player registered");
 	}
 }
