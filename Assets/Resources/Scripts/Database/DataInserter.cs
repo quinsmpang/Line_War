@@ -3,7 +3,8 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class DataInserter : MonoBehaviour {
-	string RegisterPlayerURL = "https://linewar.000webhostapp.com/db_addplayer.php";
+	//string RegisterPlayerURL = "https://linewar.000webhostapp.com/db_addplayer.php";
+	string RegisterPlayerURL = "http://ivocunha.com/db_addplayer.php";
 	public Button RegisterPlayerButton;
 
 	public string inputPlayertype;
