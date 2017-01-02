@@ -10,11 +10,11 @@ public class Login : MonoBehaviour {
 	public Text inputPlayername;
 	public Text inputPlayerpassword;
 
-//	public bool loggedin = false;
+	public static bool loggedin = false;
 
 	// Use this for initialization
 	void Start () {
-		
+		Debug.LogWarning ("loggedin is " + loggedin);
 	}
 	
 	// Update is called once per frame
@@ -33,6 +33,14 @@ public class Login : MonoBehaviour {
 		yield return www;
 
 		print (www.text);
+
+		if (www.text == "DATABASE: login successful") {
+			loggedin = true;
+			Debug.LogWarning ("loggedin is " + loggedin);
+		} else {
+			loggedin = false;
+			Debug.LogWarning ("loggedin is " + loggedin);
+		}
 	}
 
 	public void LoginButton () {

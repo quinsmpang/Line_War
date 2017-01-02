@@ -96,20 +96,31 @@ public class Menu : PunBehaviour {
 	}
 
 	// aftert the user put his username and hit ok the main planel is shown
-	public void NickPanel_OkBtn() {
-		this.nickname = nickInput.text;
-		this.nickWelcomeText.text = string.Format ("Welcome {0}", this.nickname);
-
-		this.nickPanel.SetActive (false);
-		this.mainPanel.SetActive (true);
-	}
+//	public void NickPanel_OkBtn() {
+//		if (Login.loggedin == true) {
+//			this.nickname = nickInput.text;
+//			this.nickWelcomeText.text = string.Format ("Welcome {0}", this.nickname);
+//
+//			this.nickPanel.SetActive (false);
+//			this.mainPanel.SetActive (true);
+//			Debug.LogWarning ("Correu o IF");
+//		}
+//	}
 
     public void MainPanel_SetLobby(string config) {
-        string[] configSplitted = config.Split(';');
-        this.lobbyName = configSplitted[0];
-        this.levelToLoad = configSplitted[1];
+		if (Login.loggedin) {
+			this.nickname = nickInput.text;
+			this.nickWelcomeText.text = string.Format ("Welcome {0}", this.nickname);
 
-        MainPanel_MultilayerBtn();
+			this.nickPanel.SetActive (false);
+			this.mainPanel.SetActive (true);
+
+			string[] configSplitted = config.Split(';');
+			this.lobbyName = configSplitted[0];
+			this.levelToLoad = configSplitted[1];
+
+			MainPanel_MultilayerBtn();
+		}
     }
 
 	// show multiplayer menu, with options to create or join a match
