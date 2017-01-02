@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DataLoader : MonoBehaviour {
+public class PlayerLoader : MonoBehaviour {
 	public string[] characters;
 
 	// Use this for initialization
