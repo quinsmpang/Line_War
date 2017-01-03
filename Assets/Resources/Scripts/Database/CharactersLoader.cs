@@ -10,7 +10,7 @@ public class CharactersLoader : MonoBehaviour {
 		WWW charactersData = new WWW("http://ivocunha.com/db_characters.php");
 		yield return charactersData;
 		string charactersDataString = charactersData.text;
-		print (charactersDataString);
+		print ("CharactersLoader: " + charactersDataString);
 		characters = charactersDataString.Split (';');
 //		print (GetDataValue(characters[1], "Name:"));
 	}

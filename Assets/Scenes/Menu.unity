@@ -2533,8 +2533,9 @@ GameObject:
   - 114: {fileID: 400027850}
   - 114: {fileID: 400027851}
   - 114: {fileID: 400027852}
-  - 114: {fileID: 400027853}
   - 114: {fileID: 400027854}
+  - 114: {fileID: 400027855}
+  - 114: {fileID: 400027853}
   m_Layer: 0
   m_Name: MenuController
   m_TagString: Untagged
@@ -2665,6 +2666,18 @@ MonoBehaviour:
   LoginPlayerButton: {fileID: 489018271}
   inputPlayername: {fileID: 1241124236}
   inputPlayerpassword: {fileID: 1120601167}
+--- !u!114 &400027855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 400027848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b3aff6710f19e448b39e250ed8e3d19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characters: []
 --- !u!1 &406394333
 GameObject:
   m_ObjectHideFlags: 0
