@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class LoginPlayer : MonoBehaviour {
 	// string LoginURL = "https://linewar.000webhostapp.com/db_login.php";
-	string LoginURL = "http://ivocunha.com/db_login.php";
+	string LoginURL = "http://ivocunha.com/linewar/db_login.php";
 	public Button LoginPlayerButton;
 
 	public Text inputPlayername;

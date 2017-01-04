@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class RegisterPlayer : MonoBehaviour {
 	//string RegisterPlayerURL = "https://linewar.000webhostapp.com/db_addplayer.php";
-	string RegisterPlayerURL = "http://ivocunha.com/db_addplayer.php";
+	string RegisterPlayerURL = "http://ivocunha.com/linewar/db_addplayer.php";
 //	public Button RegisterPlayerButton;
 
 	public string inputPlayertype;

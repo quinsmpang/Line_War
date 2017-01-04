@@ -4,38 +4,35 @@ using UnityEngine.UI;
 
 public class PlayerLoader : MonoBehaviour {
 	public string[] currentPlayer;
-
-//	string RegisterPlayerURL = "http://ivocunha.com/db_addplayer.php";
-////	public Button RegisterPlayerButton;
-//
-//	public string inputPlayertype;
-//	public Text inputPlayername;
-//	public Text inputPlayerpassword;
+	string currentPlayerID;
+	string currentPlayerType;
+	string currentPlayerName;
+	string currentPlayerPassword;
+	string currentPlayerPlayerIcon;
+	string currentPlayerCurrency;
 
 	// Use this for initialization
 	IEnumerator Start () {
 		// WWW charactersData = new WWW("https://linewar.000webhostapp.com/db_characters.php");
-		WWW playerData = new WWW("http://ivocunha.com/db_player.php");
+		WWW playerData = new WWW("http://ivocunha.com/linewar/db_player.php");
 		yield return playerData;
 		string playerDataString = playerData.text;
 		print ("PlayerLoader: " + playerDataString);
 		currentPlayer = playerDataString.Split (';');
-//		print (GetDataValue(characters[1], "Name:"));
-	}
+		currentPlayerID = GetDataValue(currentPlayer[0], "ID: ");
+		currentPlayerType = GetDataValue(currentPlayer[0], "Type: ");
+		currentPlayerName = GetDataValue(currentPlayer[0], "Name: ");
+		currentPlayerPassword = GetDataValue(currentPlayer[0], "Password: ");
+		currentPlayerPlayerIcon = GetDataValue(currentPlayer[0], "PlayerIcon: ");
+		currentPlayerCurrency = GetDataValue(currentPlayer[0], "Currency: ");
 
-//	public IEnumerator GetPlayer(string type, Text playername, Text password) {
-//		WWWForm form = new WWWForm ();
-//		form.AddField ("post_player_type", type);
-//		form.AddField ("post_player_name", playername.text);
-//		form.AddField ("post_player_password", password.text);
-//
-//		WWW www = new WWW (RegisterPlayerURL, form);
-//
-//		yield return www;
-//
-//		print (www.text);
-//
-//	}
+		print ("Current Player ID: " + currentPlayerID);
+		print ("Current Player Type: " + currentPlayerType);
+		print ("Current Player Name: " + currentPlayerName);
+		print ("Current Player Password: " + currentPlayerPassword);
+		print ("Current Player PlayerIcon: " + currentPlayerPlayerIcon);
+		print ("Current Player Currency: " + currentPlayerCurrency);
+	}
 
 	string GetDataValue(string data, string index) {
 		string value = data.Substring (data.IndexOf(index) + index.Length);

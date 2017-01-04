@@ -7,12 +7,12 @@ public class CharactersLoader : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
 		// WWW charactersData = new WWW("https://linewar.000webhostapp.com/db_characters.php");
-		WWW charactersData = new WWW("http://ivocunha.com/db_characters.php");
+		WWW charactersData = new WWW("http://ivocunha.com/linewar/db_characters.php");
 		yield return charactersData;
 		string charactersDataString = charactersData.text;
 		print ("CharactersLoader: " + charactersDataString);
 		characters = charactersDataString.Split (';');
-//		print (GetDataValue(characters[1], "Name:"));
+//		print (GetDataValue(characters[1], "Name: "));
 	}
 
 	string GetDataValue(string data, string index) {
