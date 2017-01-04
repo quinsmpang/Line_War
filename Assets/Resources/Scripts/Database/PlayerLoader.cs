@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 public class PlayerLoader : MonoBehaviour {
 	public string[] currentPlayer;
-	string currentPlayerID;
-	string currentPlayerType;
-	string currentPlayerName;
-	string currentPlayerPassword;
-	string currentPlayerPlayerIcon;
-	string currentPlayerCurrency;
+	public string currentPlayerID;
+	public string currentPlayerType;
+	public string currentPlayerName;
+	public string currentPlayerPassword;
+	public string currentPlayerPlayerIcon;
+	public string currentPlayerCurrency;
 
 	// Use this for initialization
 	IEnumerator Start () {
