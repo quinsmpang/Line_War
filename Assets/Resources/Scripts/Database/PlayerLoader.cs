@@ -11,6 +11,8 @@ public class PlayerLoader : MonoBehaviour {
 	public string currentPlayerPlayerIcon;
 	public string currentPlayerCurrency;
 
+	public Text coinsText;
+
 	// Use this for initialization
 	IEnumerator Start () {
 		// WWW charactersData = new WWW("https://linewar.000webhostapp.com/db_characters.php");
@@ -25,6 +27,8 @@ public class PlayerLoader : MonoBehaviour {
 		currentPlayerPassword = GetDataValue(currentPlayer[0], "Password: ");
 		currentPlayerPlayerIcon = GetDataValue(currentPlayer[0], "PlayerIcon: ");
 		currentPlayerCurrency = GetDataValue(currentPlayer[0], "Currency: ");
+
+		coinsText.text = (currentPlayerCurrency);
 
 		print ("Current Player ID: " + currentPlayerID);
 		print ("Current Player Type: " + currentPlayerType);
