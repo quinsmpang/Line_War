@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: TrueSyncConfig
   m_EditorClassIdentifier: 
   syncWindow: 10
-  rollbackWindow: 5
+  rollbackWindow: 0
   panicWindow: 100
   physics2DEnabled: 0
   gravity2D:
