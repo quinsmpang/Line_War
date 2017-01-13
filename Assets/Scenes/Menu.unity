@@ -2708,6 +2708,10 @@ MonoBehaviour:
   currentPlayerPassword: 
   currentPlayerPlayerIcon: 
   currentPlayerCurrency: 
+  playerIconsList:
+  - {fileID: 21300000, guid: 128b567ec6c3b66439a21381051b23a6, type: 3}
+  - {fileID: 21300000, guid: 1c3cc30175221ff4c97f2280dfcf54bb, type: 3}
+  playerIcon: {fileID: 1465460969}
   coinsText: {fileID: 1638422222}
 --- !u!1 &406394333
 GameObject:
@@ -9651,7 +9655,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 6710226d9e3d368458854e0bd87d11b3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 57d73c2d673cbd74c8cad2da8e7333c6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

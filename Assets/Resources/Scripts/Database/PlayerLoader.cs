@@ -11,6 +11,8 @@ public class PlayerLoader : MonoBehaviour {
 	public string currentPlayerPlayerIcon;
 	public string currentPlayerCurrency;
 
+	public Sprite[] playerIconsList;
+	public Image playerIcon;
 	public Text coinsText;
 
 	// Use this for initialization
@@ -28,6 +30,7 @@ public class PlayerLoader : MonoBehaviour {
 		currentPlayerPlayerIcon = GetDataValue(currentPlayer[0], "PlayerIcon: ");
 		currentPlayerCurrency = GetDataValue(currentPlayer[0], "Currency: ");
 
+		playerIcon.overrideSprite = playerIconsList[int.Parse(currentPlayerPlayerIcon)];
 		coinsText.text = (currentPlayerCurrency);
 
 		print ("Current Player ID: " + currentPlayerID);
