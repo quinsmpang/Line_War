@@ -37,6 +37,7 @@ public class LoginPlayer : MonoBehaviour {
 		if (www.text == "DATABASE: login successful") {
 			loggedin = true;
 			Debug.LogWarning ("loggedin is " + loggedin);
+			Menu.instance.MainPanel_SetLobby ("demo_boxes;Scenes/Game");
 		} else {
 			loggedin = false;
 			Debug.LogWarning ("loggedin is " + loggedin);

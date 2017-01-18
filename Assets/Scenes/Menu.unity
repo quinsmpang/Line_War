@@ -3239,7 +3239,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: demo_boxes;Scenes/Game
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 0
       - m_Target: {fileID: 400027850}
         m_MethodName: NickPanel_OkBtn
         m_Mode: 1
@@ -4237,7 +4237,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &584920528
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10495,7 +10495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1696091128
 RectTransform:
   m_ObjectHideFlags: 0
