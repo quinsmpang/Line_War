@@ -34,6 +34,7 @@ public class RegisterPlayer : MonoBehaviour {
 		print (www.text);
 
 		if (www.text == "DATABASE: Player created ") {
+			LoginPlayer.instance.LoginButton ();
 //			LoginPlayer.LoginButton ();
 		}
 

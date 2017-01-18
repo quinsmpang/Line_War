@@ -11,10 +11,12 @@ public class LoginPlayer : MonoBehaviour {
 	public Text inputPlayerpassword;
 
 	public static bool loggedin = false;
+	public static LoginPlayer instance;
 
 	// Use this for initialization
 	void Start () {
-		Debug.LogWarning ("loggedin is " + loggedin);
+		Debug.Log ("loggedin is " + loggedin);
+		instance = this;
 	}
 	
 	// Update is called once per frame
@@ -36,11 +38,11 @@ public class LoginPlayer : MonoBehaviour {
 
 		if (www.text == "DATABASE: login successful") {
 			loggedin = true;
-			Debug.LogWarning ("loggedin is " + loggedin);
+			Debug.Log ("loggedin is " + loggedin);
 			Menu.instance.MainPanel_SetLobby ("demo_boxes;Scenes/Game");
 		} else {
 			loggedin = false;
-			Debug.LogWarning ("loggedin is " + loggedin);
+			Debug.Log ("loggedin is " + loggedin);
 		}
 	}
 
