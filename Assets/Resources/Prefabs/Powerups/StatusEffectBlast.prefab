@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012369523132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e5fdcfbc477861488578ad6b7717176, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f3823952b0b5e5488ffeafe21c3338d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPlayers: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
     name: 
   Name: Blast
   activationLifeSpan: 0
-  existanceTimeFrame: 0
+  existanceTimeFrame: 1
   target: 0
   activatedLifetime:
     _serializedValue: 0
@@ -141,10 +141,9 @@ MonoBehaviour:
     _serializedValue: 0
   spawnEndTime:
     _serializedValue: 0
-  Description: Creates a blast of force that pushes the nearest line away from the
-    initiating actor
+  Description: Produces a massive shcokwave of force against the nearest line.
   blastEffectForce:
-    _serializedValue: 236223201280
+    _serializedValue: 214748364800
   blastPenaltyForce:
     _serializedValue: 0
   usesPenalty: 0
