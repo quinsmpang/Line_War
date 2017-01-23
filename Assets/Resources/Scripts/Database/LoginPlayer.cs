@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class LoginPlayer : MonoBehaviour {
-	// string LoginURL = "https://linewar.000webhostapp.com/db_login.php";
 	string LoginURL = "http://ivocunha.com/linewar/db_login.php";
 	public Button LoginPlayerButton;
 
@@ -21,7 +20,7 @@ public class LoginPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		//if (Input.GetKeyDown(KeyCode.Space)) StartCoroutine(LoginToDB(inputPlayername, inputPlayerpassword));
+		
 	}
 
 	IEnumerator LoginToDB (Text playername, Text playerpassword) {
@@ -48,6 +47,5 @@ public class LoginPlayer : MonoBehaviour {
 
 	public void LoginButton () {
 		StartCoroutine (LoginToDB (inputPlayername, inputPlayerpassword));
-	//	print ("Player Logged in");
 	}
 }

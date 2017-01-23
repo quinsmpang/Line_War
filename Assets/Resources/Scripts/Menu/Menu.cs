@@ -10,7 +10,6 @@ public enum PanelType { Info, Main, Nick, Match, Multiplayer, Options, Replay};
 
 // Connects to Photon Cloud, manages GUI to create/join game rooms.
 public class Menu : PunBehaviour {
-
     private const int TIME_TO_START_MATCH = 3;
 
     public Text infoText;
@@ -400,5 +399,4 @@ public class Menu : PunBehaviour {
 		}
 		Debug.Log ("Current screen: " + panelType);
     }
-
 }

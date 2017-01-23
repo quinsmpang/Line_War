@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class PlayerSkillPicker : MonoBehaviour {
 
-	public GameObject characterList; // Assign in inspector
+	public GameObject playerSkillList; // Assign in inspector
 	public Button buttonPlayerSkill1;
 	public Button buttonPlayerSkill2;
 	private bool _isShowing;
@@ -16,7 +16,7 @@ public class PlayerSkillPicker : MonoBehaviour {
 
 	void ToggleCharactersList () {
 		_isShowing = !_isShowing;
-		characterList.SetActive(_isShowing);
+		playerSkillList.SetActive(_isShowing);
 	}
 }
 

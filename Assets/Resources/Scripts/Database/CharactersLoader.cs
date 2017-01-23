@@ -6,7 +6,6 @@ public class CharactersLoader : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
-		// WWW charactersData = new WWW("https://linewar.000webhostapp.com/db_characters.php");
 		WWW charactersData = new WWW("http://ivocunha.com/linewar/db_getcharacters.php");
 		yield return charactersData;
 		string charactersDataString = charactersData.text;

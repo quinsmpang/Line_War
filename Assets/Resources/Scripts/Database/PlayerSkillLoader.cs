@@ -6,7 +6,6 @@ public class PlayerSkillLoader : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
-		// WWW charactersData = new WWW("https://linewar.000webhostapp.com/db_characters.php");
 		WWW playerSkillsData = new WWW("http://ivocunha.com/linewar/db_getplayerskills.php");
 		yield return playerSkillsData;
 		string playerSkillsDataString = playerSkillsData.text;

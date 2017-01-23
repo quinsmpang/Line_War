@@ -6,7 +6,6 @@ public class CharacterSkillLoader : MonoBehaviour {
 
 	// Use this for initialization
 	IEnumerator Start () {
-		// WWW charactersData = new WWW("https://linewar.000webhostapp.com/db_characters.php");
 		WWW characterSkillsData = new WWW("http://ivocunha.com/linewar/db_getcharacterskills.php");
 		yield return characterSkillsData;
 		string characterSkillsDataString = characterSkillsData.text;
