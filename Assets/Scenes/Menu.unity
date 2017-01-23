@@ -2563,6 +2563,7 @@ GameObject:
   - 114: {fileID: 400027853}
   - 114: {fileID: 400027856}
   - 114: {fileID: 400027857}
+  - 114: {fileID: 400027858}
   m_Layer: 0
   m_Name: MenuController
   m_TagString: Untagged
@@ -2739,6 +2740,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coins: {fileID: 1638422222}
+--- !u!114 &400027858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 400027848}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 438904b21f5e68e4e84c65a8c28c8229, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterSkills: []
 --- !u!1 &406394333
 GameObject:
   m_ObjectHideFlags: 0

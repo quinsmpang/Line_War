@@ -18,7 +18,7 @@ public class PlayerLoader : MonoBehaviour {
 	// Use this for initialization
 	IEnumerator Start () {
 		// WWW charactersData = new WWW("https://linewar.000webhostapp.com/db_characters.php");
-		WWW playerData = new WWW("http://ivocunha.com/linewar/db_player.php");
+		WWW playerData = new WWW("http://ivocunha.com/linewar/db_getplayer.php");
 		yield return playerData;
 		string playerDataString = playerData.text;
 		print ("PlayerLoader: " + playerDataString);

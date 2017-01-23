@@ -1,17 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerSkillLoader : MonoBehaviour {
-	public string[] playerSkills;
+public class CharacterSkillLoader : MonoBehaviour {
+	public string[] characterSkills;
 
 	// Use this for initialization
 	IEnumerator Start () {
 		// WWW charactersData = new WWW("https://linewar.000webhostapp.com/db_characters.php");
-		WWW playerSkillsData = new WWW("http://ivocunha.com/linewar/db_getplayerskills.php");
-		yield return playerSkillsData;
-		string playerSkillsDataString = playerSkillsData.text;
-		print ("PlayerSkillLoader: " + playerSkillsDataString);
-		playerSkills = playerSkillsDataString.Split (';');
+		WWW characterSkillsData = new WWW("http://ivocunha.com/linewar/db_getcharacterskills.php");
+		yield return characterSkillsData;
+		string characterSkillsDataString = characterSkillsData.text;
+		print ("CharacterSkillLoader: " + characterSkillsDataString);
+		characterSkills = characterSkillsDataString.Split (';');
 //		print (GetDataValue(characters[1], "Name: "));
 	}
 
