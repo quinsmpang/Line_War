@@ -806,7 +806,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1727294172}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f5161b59e8632a488cc8db134f503e4, type: 3}
+  m_Script: {fileID: 11500000, guid: d0d241f766d330e4785a3cac929445e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPlayers: 0
@@ -818,7 +818,7 @@ MonoBehaviour:
     id: 0
     name: 
   statusEffectPrefabs:
-  - {fileID: 1000012369523132, guid: f41e75c72686dfb448a3e238b844d68a, type: 2}
+  - {fileID: 1000012369523132, guid: 0e768b4de5a817343ac85175cbbdc55b, type: 2}
   spawnTimeInterval:
     _serializedValue: 21474836480
   maxDistributionRadius: 10
