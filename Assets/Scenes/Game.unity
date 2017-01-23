@@ -335,82 +335,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 2
   m_VerticalFit: 2
---- !u!1 &693565046 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 199134, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-  m_PrefabInternal: {fileID: 945156659}
---- !u!114 &693565047
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 693565046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c84e86b786b843a783eee1503880058, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberOfPlayers: 0
-  ownerIndex: -1
-  owner:
-    id: 0
-    name: 
-  localOwner:
-    id: 0
-    name: 
---- !u!114 &693565048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 693565046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0d241f766d330e4785a3cac929445e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberOfPlayers: 0
-  ownerIndex: -1
-  owner:
-    id: 0
-    name: 
-  localOwner:
-    id: 0
-    name: 
-  statusEffectPrefabs:
-  - {fileID: 1000012369523132, guid: 0e768b4de5a817343ac85175cbbdc55b, type: 2}
-  maxDistributionRadius: 10
-  minDistributionRadius: 2
---- !u!114 &693565050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 693565046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19d88755d0441ff438efd80ec2bdbb8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _characterPrefab: {fileID: 1000013355413534, guid: c533f41c7cfe2fe4d8a20a2e54b59f15,
-    type: 2}
-  _characterDistanceFromCenter: 10
-  _tapEffectRadius:
-    _serializedValue: 21474836480
-  _minTapDistance:
-    _serializedValue: 6442450944
-  _tapEffectForce:
-    _serializedValue: 107374182400
-  _penaltyEffectForce:
-    _serializedValue: 0
-  LineFriction:
-    _dragCoefficient: 1
-  LocalPlayerAreaMaterial: {fileID: 2100000, guid: c046a99a55eae4467aa73f40caf9abdf,
-    type: 2}
-  RemotePlayerAreaMaterial: {fileID: 2100000, guid: a2fde61a805a16f478adbcb09877e0fa,
-    type: 2}
-  MinTapDistanceFromPrevious:
-    _serializedValue: 4294967296
 --- !u!1 &893320831
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,14 +404,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: playerPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: behaviourPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 489014, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
       propertyPath: m_LocalPosition.x
       value: -0.23439279
@@ -520,58 +436,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: behaviourPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 127454, guid: 1afdebe5e61ad41039e9c289763cf2e9, type: 2}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: syncWindow
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: rollbackWindow
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: showStats
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: sendWindow
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: playerPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 1000013560835822, guid: 316ed2498eb5f2943bb288254b96808a,
-        type: 2}
-    - target: {fileID: 199134, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: offlineMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: replayMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 0}
-      propertyPath: speculativeContacts
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: speculativeContacts
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11424684, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
-      propertyPath: customConfig
-      value: 
-      objectReference: {fileID: 11400000, guid: 51d961fe3bd809c41889e14818a95b46,
-        type: 2}
-    m_RemovedComponents:
-    - {fileID: 0}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0017db9755b5cb442a00a702420c1076, type: 2}
   m_IsPrefabParent: 0
 --- !u!224 &979626389 stripped
