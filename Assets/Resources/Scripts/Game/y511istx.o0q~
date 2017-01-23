@@ -1,0 +1,71 @@
+﻿using UnityEngine;
+using System.Collections;
+using TrueSync;
+using System;
+
+
+public class Powerup : TrueSyncBehaviour {
+
+    public enum EffectType { Self, Others, Everyone }
+    public EffectType effectType;
+    public Action Action;
+    public string Description;
+
+    /*
+    
+    Powerups - Have effects on players
+
+    Effects - A list of effects is kept on various objects in the game
+        Applying effects - each effect has a lifetime, when the lifetime runs out its effect gets removed
+    
+    Players - actors for effects to be applied upon
+
+    Lines - actors for effects to be applied upon
+
+    What to do for effect targeting (targets of effects, as in actors of the effects to be applied upon)?
+        - Each effect needs to keep a list of actors it will be applied upon within its lifetime
+
+    If there can be multiple effects per actor, how can the effects be tracked (as in if a powerup is already applied to a
+    target, how do we keep track of this when another powerup is obtained?)
+        answer to the question is 2 parts:
+        - keep a list of all running effects
+        - keep a list of all actors and within each actor maintain a list of running effects (sort of like a reverse lookup)
+        make these 2 parts appear as one system that hides the details, have one central location to create and lookup effects
+
+    class PowerupSystem
+        
+
+
+        SetEffect(actor, effect)
+
+        GetEffect(actor, effect) - return some effect owned by the specified actor
+
+        effect:
+            lifetime - number of seconds to run
+            endtime - time in which this effect terminates
+            actor - actor which this effect applies to
+            original - some actor variable reference that stores the original value before modification
+            modified - some actor variable reference that is changed to this value during lifetime of effect
+
+            onBegin - method called when the effect begins
+            onTerminate - method called when the effect ends
+            
+
+    */
+
+    public void OnSyncedTriggerEnter(TSCollision other)
+    {
+
+        TapLocationSphereCheck sphereCheck = other.gameObject.GetComponent<TapLocationSphereCheck>();
+        if (sphereCheck != null)
+        {
+            Action();
+        }
+
+        Debug.LogWarning("Powerup Triggered with: " + other.gameObject.name + " owner: " + owner.Name);
+
+        // Execute Action here, applied with the owner reference (make sure the right player activates this powerup)
+
+    }
+
+}
