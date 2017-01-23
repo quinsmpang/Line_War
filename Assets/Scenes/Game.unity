@@ -358,6 +358,29 @@ MonoBehaviour:
   localOwner:
     id: 0
     name: 
+--- !u!114 &693565048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 693565046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d241f766d330e4785a3cac929445e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfPlayers: 0
+  ownerIndex: -1
+  owner:
+    id: 0
+    name: 
+  localOwner:
+    id: 0
+    name: 
+  statusEffectPrefabs:
+  - {fileID: 1000012369523132, guid: 0e768b4de5a817343ac85175cbbdc55b, type: 2}
+  maxDistributionRadius: 10
+  minDistributionRadius: 2
 --- !u!114 &693565050
 MonoBehaviour:
   m_ObjectHideFlags: 0

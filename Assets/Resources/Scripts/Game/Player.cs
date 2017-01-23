@@ -4,17 +4,12 @@ using TrueSync;
 using DG.Tweening;
 
 
-public class Player : TrueSyncBehaviour
-{
+public class Player : StatusEffectActor {
+
     /**
     * @brief Key to set/get horizontal position from {@link TrueSyncInput}.
     **/
     private const byte INPUT_TAP_LOCATION = 0;
-
-    public Mesh _areaHighlightMesh;
-    public MeshCollider _areaHighlightMeshCollider;
-    public MeshRenderer _areaHighlightMeshRenderer;
-    public MeshFilter _areaHighlightMeshFilter;
 
     [SerializeField]
     private Transform _line1;   // 1st line assigned to this player
@@ -24,13 +19,23 @@ public class Player : TrueSyncBehaviour
 
     private Transform _characterTS;
 
-    private static LayerMask _areaHighlightlayerMask;
+    public Mesh _areaHighlightMesh;
+    public MeshCollider _areaHighlightMeshCollider;
+    public MeshRenderer _areaHighlightMeshRenderer;
+    public MeshFilter _areaHighlightMeshFilter;
+
+    private static LayerMask _areaHighlightLayerMask;
+    private static LayerMask _powerupLayerMask;
     private static List<Player> _playerList = new List<Player>();  // list of players in game
     private static float[] _intermediateBoundaryAngles = { 45f, 135f, 225f, 315f }; // Angles representing the corners on the screen
     private static GameObject PositionMarkerGO;
     private static List<TSRigidBody> _lineList = new List<TSRigidBody>();
 
+    public static Dictionary<TSPlayerInfo, Player> TSPlayerInfoToPlayerDict = new Dictionary<TSPlayerInfo, Player>();
+
     private TSVector lastValidTapLocation = TSVector.one * 1000000;
+    private GameObject _tapLocationSphereCheckGO;
+    private TSRigidBody _tapLocationSphereCheckRB;
 
 
     private static void AdjustLineAssignments()
@@ -62,7 +67,7 @@ public class Player : TrueSyncBehaviour
         for (int index = 0; index < _lineList.Count; index++)
         {
             TSRigidBody rb = _lineList[index];
-            rb.MovePosition(new TSVector(0,5,0));
+            rb.MovePosition(new TSVector(0,1,0));
             //rb.angularVelocity = TSVector.up;
             rb.tsTransform.rotation = TSQuaternion.AngleAxis(index * lineAngle, TSVector.up);
             rb.gameObject.name = "Line " + index;
@@ -77,7 +82,8 @@ public class Player : TrueSyncBehaviour
 
         _characterTS.name = "character player " + _playerList.Count;
 
-        _areaHighlightlayerMask = LayerMask.GetMask("PlayerArea");
+        _areaHighlightLayerMask = 1 << LayerMask.GetMask("PlayerArea");
+        _powerupLayerMask = 1 << LayerMask.GetMask("Powerup");
         _areaHighlightMesh = new Mesh();
         _areaHighlightMeshCollider = gameObject.AddComponent<MeshCollider>();
         _areaHighlightMeshRenderer = gameObject.AddComponent<MeshRenderer>();
@@ -201,6 +207,10 @@ public class Player : TrueSyncBehaviour
     **/
     public override void OnSyncedStart()
     {
+        TSPlayerInfoToPlayerDict.Add(owner, this);
+
+        //_tapLocationSphereCheckRB = _tapLocationSphereCheckGO.GetComponent<TSRigidBody>();
+
         // Adds {@link #lastJumpState} to the tracking system
         StateTracker.AddTracking(this);
         
@@ -219,9 +229,10 @@ public class Player : TrueSyncBehaviour
     {
         TSVector lastTapInput = TSVector.zero;
         RaycastHit hit;
-        if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f))
+        // Raycast only against local player's area, do not register taps outside of this area
+        if (Input.GetMouseButtonDown(0) && Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hit, 50f, _areaHighlightLayerMask))
         {
-            if (hit.collider.gameObject == gameObject) // Only register tap if tapping on local player's area
+            if (hit.collider.gameObject == gameObject)
             {
                 lastTapInput = hit.point.ToTSVector();
             }
@@ -272,14 +283,14 @@ public class Player : TrueSyncBehaviour
         }
     }
 
-    private void EffectNearestLine(TSVector tapLocation)
+    public static TSRigidBody GetClosestLine(TSVector position)
     {
         TSRigidBody closestLine = _lineList[0];
         FP closestResult = new FP(-1); // DOT product of -1, farthest possible value to check direction of a vector
 
         foreach (TSRigidBody thisLine in _lineList)
         {
-            FP result = TSVector.Dot(thisLine.tsTransform.forward, tapLocation.normalized);
+            FP result = TSVector.Dot(thisLine.tsTransform.forward, position.normalized);
 
             if (result > closestResult)
             {
@@ -288,27 +299,39 @@ public class Player : TrueSyncBehaviour
             }
         }
 
-        if (closestLine.angularVelocity.magnitude > 0) // exit this method if line is moving, can't hit lines while they move
-            return;
+        return closestLine;
+    }
 
-        // We have the closest line, determine if it's close enough for effect
-        // Point on line nearest tap contact is made
-        TSVector linePoint = closestLine.tsTransform.forward * tapLocation.magnitude;
-        FP distanceToLine = TSVector.Distance(linePoint, tapLocation);
+    public static FP GetDistanceToLineFromPosition(TSRigidBody lineRB, TSVector position)
+    {
+        return TSVector.Distance(lineRB.tsTransform.forward * position.magnitude, position);
+    }
+
+    public static void ApplyExplosiveForceOnLine(TSRigidBody lineRB, FP force)
+    {
+        lineRB.AddTorque(TSVector.up * force);
+    }
+
+    public void TapNearLine(TSVector tapLocation)
+    {
+        TSRigidBody lineRB = GetClosestLine(tapLocation);
+        if (lineRB.angularVelocity.magnitude > 0) // exit this method if line is moving, can't hit lines while they move
+            return;
+        FP distanceToLine = GetDistanceToLineFromPosition(lineRB, tapLocation);
+        FP direction = TSVector.Cross(tapLocation.normalized, lineRB.tsTransform.forward).normalized.y;
         FP tapEffectRadius = PlayerConfig.Instance.TapEffectRadius;
         FP minTapDistance = PlayerConfig.Instance.MinTapDistance;
-        FP direction = TSVector.Cross(tapLocation.normalized, closestLine.tsTransform.forward).normalized.y;
         FP effect = FP.One;
-
-        if (distanceToLine < minTapDistance) // if tapped on line, penalty
+        if (distanceToLine < minTapDistance) // apply penalty, tap was too close to the line
         {
-            closestLine.AddTorque(TSVector.down * direction * PlayerConfig.Instance.PenaltyEffectForce);
+            ApplyExplosiveForceOnLine(lineRB, -1 * direction * PlayerConfig.Instance.PenaltyEffectForce);
         }
-        else if (tapEffectRadius >= distanceToLine) // if tapped within range, but not on line
+        else if (tapEffectRadius >= distanceToLine) // within range, but not on line.  Apply normal force
         {
             effect = 1 - (distanceToLine - minTapDistance) / tapEffectRadius;
-            closestLine.AddTorque(TSVector.up * direction * PlayerConfig.Instance.TapEffectForce * effect);
+            ApplyExplosiveForceOnLine(lineRB, direction * PlayerConfig.Instance.TapEffectForce * effect);
         }
+
     }
 
     /// <summary>
@@ -318,6 +341,10 @@ public class Player : TrueSyncBehaviour
     /// <param name="tapLocation">location where tap/click took place</param>
     private void OnTapLocation(TSVector tapLocation)
     {
+        // Handle powerup taps
+        GameObject tlsc = TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/TapLocationSphereCheck") as GameObject, tapLocation, TSQuaternion.identity);
+        tlsc.GetComponent<TapLocationSphereCheck>().Owner = localOwner;
+
         // Shows where click took place (position marker):
         GameObject positionMarker = TrueSyncManager.SyncedInstantiate(PositionMarkerGO, tapLocation, TSQuaternion.identity);
         positionMarker.transform.position = tapLocation.ToVector();
@@ -329,7 +356,7 @@ public class Player : TrueSyncBehaviour
 
         if (TSVector.Distance(lastValidTapLocation, tapLocation) >= PlayerConfig.Instance.MinTapDistanceFromPrevious)
         {
-            EffectNearestLine(tapLocation);
+            TapNearLine(tapLocation);
             rend.material.color = Color.black;
         }
         else
