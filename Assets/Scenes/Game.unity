@@ -758,6 +758,7 @@ GameObject:
   - 114: {fileID: 1993818512}
   - 114: {fileID: 1993818511}
   - 114: {fileID: 1993818510}
+  - 114: {fileID: 1993818509}
   m_Layer: 0
   m_Name: TrueSyncManager
   m_TagString: Untagged
@@ -765,6 +766,31 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &1993818509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1993818508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60d9b08f57bbf5d4bb281506d6e59dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfPlayers: 0
+  ownerIndex: -1
+  owner:
+    id: 0
+    name: 
+  localOwner:
+    id: 0
+    name: 
+  statusEffectPrefabs:
+  - {fileID: 1000012369523132, guid: fda718fd05446be42a3f549c43cd4759, type: 2}
+  spawnTimeInterval:
+    _serializedValue: 21474836480
+  maxDistributionRadius: 10
+  minDistributionRadius: 2
 --- !u!114 &1993818510
 MonoBehaviour:
   m_ObjectHideFlags: 0

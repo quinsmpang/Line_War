@@ -22,6 +22,7 @@ GameObject:
   - 114: {fileID: 114000010077269520}
   - 114: {fileID: 114000013534981662}
   - 114: {fileID: 114000012190199112}
+  - 114: {fileID: 114000011697988074}
   m_Layer: 11
   m_Name: TapLocationSphereCheck
   m_TagString: Untagged
@@ -79,6 +80,28 @@ MonoBehaviour:
   _serialized: 1
   tsCollider: {fileID: 0}
   tsParent: {fileID: 0}
+--- !u!114 &114000011697988074
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013348284060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8222ecc25bc4ac74bb73e3a9733be8ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfPlayers: 0
+  ownerIndex: -1
+  owner:
+    id: 0
+    name: 
+  localOwner:
+    id: 0
+    name: 
+  Owner:
+    id: 0
+    name: 
 --- !u!114 &114000012190199112
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -24,6 +24,7 @@ GameObject:
   - 33: {fileID: 33000011593515324}
   - 114: {fileID: 114000010261270066}
   - 114: {fileID: 114000011809659410}
+  - 114: {fileID: 114000014181518058}
   m_Layer: 10
   m_Name: StatusEffectBlast
   m_TagString: Powerup
@@ -163,3 +164,40 @@ MonoBehaviour:
   _serialized: 1
   tsCollider: {fileID: 0}
   tsParent: {fileID: 0}
+--- !u!114 &114000014181518058
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012369523132}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7c60e822178b5149a4bea2b7f0a843f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfPlayers: 0
+  ownerIndex: -1
+  owner:
+    id: 0
+    name: 
+  localOwner:
+    id: 0
+    name: 
+  Name: Blast
+  activationLifeSpan: 0
+  existanceTimeFrame: 0
+  target: 0
+  activatedLifetime:
+    _serializedValue: 0
+  activatedEndtime:
+    _serializedValue: 0
+  spawnLifetime:
+    _serializedValue: 0
+  spawnEndTime:
+    _serializedValue: 0
+  Description: Inflicts an explosion of force upon the nearest line.
+  blastEffectForce:
+    _serializedValue: 214748364800
+  blastPenaltyForce:
+    _serializedValue: 0
+  usesPenalty: 0
