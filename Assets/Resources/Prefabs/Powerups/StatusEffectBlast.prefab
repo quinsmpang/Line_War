@@ -24,7 +24,7 @@ GameObject:
   - 33: {fileID: 33000011593515324}
   - 114: {fileID: 114000010261270066}
   - 114: {fileID: 114000011809659410}
-  - 114: {fileID: 114000011020999380}
+  - 114: {fileID: 114000011505815672}
   m_Layer: 10
   m_Name: StatusEffectBlast
   m_TagString: Powerup
@@ -110,7 +110,7 @@ MonoBehaviour:
       _serializedValue: 4294967296
   tsTransform: {fileID: 0}
   _radius: 1
---- !u!114 &114000011020999380
+--- !u!114 &114000011505815672
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -141,9 +141,9 @@ MonoBehaviour:
     _serializedValue: 0
   spawnEndTime:
     _serializedValue: 0
-  Description: Blast effect, first effect example
+  Description: This effect inflicts an explosion of force on a nearby target
   blastEffectForce:
-    _serializedValue: 107374182400
+    _serializedValue: 214748364800
   blastPenaltyForce:
     _serializedValue: 0
   usesPenalty: 0

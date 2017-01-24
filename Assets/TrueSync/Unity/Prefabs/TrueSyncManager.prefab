@@ -10,8 +10,8 @@ GameObject:
   - 4: {fileID: 489014}
   - 114: {fileID: 11424684}
   - 114: {fileID: 114000011342624156}
-  - 114: {fileID: 114000014249117206}
   - 114: {fileID: 114000013100348432}
+  - 114: {fileID: 114000011720344248}
   m_Layer: 0
   m_Name: TrueSyncManager
   m_TagString: Untagged
@@ -85,6 +85,31 @@ MonoBehaviour:
   localOwner:
     id: 0
     name: 
+--- !u!114 &114000011720344248
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 199134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0d241f766d330e4785a3cac929445e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  numberOfPlayers: 0
+  ownerIndex: -1
+  owner:
+    id: 0
+    name: 
+  localOwner:
+    id: 0
+    name: 
+  statusEffectPrefabs:
+  - {fileID: 1000012369523132, guid: 0e768b4de5a817343ac85175cbbdc55b, type: 2}
+  spawnTimeInterval:
+    _serializedValue: 21474836480
+  maxDistributionRadius: 10
+  minDistributionRadius: 2
 --- !u!114 &114000013100348432
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,28 +140,3 @@ MonoBehaviour:
     type: 2}
   MinTapDistanceFromPrevious:
     _serializedValue: 4294967296
---- !u!114 &114000014249117206
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 199134}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0d241f766d330e4785a3cac929445e8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  numberOfPlayers: 0
-  ownerIndex: -1
-  owner:
-    id: 0
-    name: 
-  localOwner:
-    id: 0
-    name: 
-  statusEffectPrefabs:
-  - {fileID: 1000012369523132, guid: 0e768b4de5a817343ac85175cbbdc55b, type: 2}
-  spawnTimeInterval:
-    _serializedValue: 21474836480
-  maxDistributionRadius: 10
-  minDistributionRadius: 2
