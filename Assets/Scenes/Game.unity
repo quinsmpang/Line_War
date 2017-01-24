@@ -786,7 +786,7 @@ MonoBehaviour:
     id: 0
     name: 
   statusEffectPrefabs:
-  - {fileID: 1000012369523132, guid: fb0575c756ab65241ab723737ef5bc5e, type: 2}
+  - {fileID: 1000012806943530, guid: 9772d1bd981616e439b58c3103d299bd, type: 2}
   spawnTimeInterval:
     _serializedValue: 21474836480
   maxDistributionRadius: 10
