@@ -118,7 +118,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012369523132}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e5fdcfbc477861488578ad6b7717176, type: 3}
+  m_Script: {fileID: 11500000, guid: 25fd447c75927904b95a887bed6141e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   numberOfPlayers: 0
@@ -141,7 +141,7 @@ MonoBehaviour:
     _serializedValue: 0
   spawnEndTime:
     _serializedValue: 0
-  Description: This effect inflicts an explosion of force on a nearby target
+  Description: 
   blastEffectForce:
     _serializedValue: 214748364800
   blastPenaltyForce:
