@@ -117,9 +117,4 @@ public abstract class StatusEffect : TrueSyncBehaviour {
     }
 
 
-    
-
-
-    
-
 }

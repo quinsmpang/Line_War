@@ -49,13 +49,45 @@ public class StatusEffectSystem : TrueSyncBehaviour {
             if (statusEffectPrefabs.Count < 1)
                 Debug.LogError("Status Effect Prefabs List is empty, there must be at least 1 prefab reference in the list.");
 
-            GameObject go = TrueSyncManager.SyncedInstantiate(statusEffectPrefabs[0], getRandomPosition(), TSQuaternion.identity);
+            // Pick a random effect, then try to find a place where it will not overlap other status effects
+            GameObject rseGO = statusEffectPrefabs.GetRange(0, 1)[0];  // FIXME: make this a random selection
+            StatusEffect rse = rseGO.GetComponent<StatusEffect>();
+            FP rseRadius = rse.GetComponent<TSSphereCollider>().radius;
+
+
+
+            GameObject go = TrueSyncManager.SyncedInstantiate(rseGO, findAvailableStatusEffectPosition(rseRadius), TSQuaternion.identity);
             StatusEffect se = go.GetComponent<StatusEffect>();
             spawnedStatusEffects.Add(se);
             se.OnSpawn();
         }
     }
 
+    private TSVector findAvailableStatusEffectPosition(FP selectedStatusEffectRadius)
+    {
+        // Find a location where random status effect will not overlap
+        TSVector randomPos = getRandomPosition();
+        bool positionFound = true;
+        do
+        {
+            positionFound = true; // default to found position
+            foreach (StatusEffect effect in spawnedStatusEffects)
+            {
+                if (TSVector.Distance(effect.tsTransform.position, randomPos) <= selectedStatusEffectRadius + effect.GetComponent<TSSphereCollider>().radius)
+                {
+                    randomPos = getRandomPosition();
+                    positionFound = false;
+                    break;
+                }
+            }
+            if (positionFound)
+            {
+                break;
+            }
+        } while (!positionFound);
+
+        return randomPos;
+    }
 
     /// <summary>
     /// Generates a random position using min and max distribution radius

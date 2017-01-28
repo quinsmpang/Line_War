@@ -335,9 +335,6 @@ public class Player : StatusEffectActor {
 
     }
 
-
-
-
     /// <summary>
     /// OnTapLocation - call this to handle distributing and processing taps across a synchronized network game session
     /// Responds to taps and decides what to do
