@@ -29,11 +29,13 @@ public abstract class LineWarStatusEffect : StatusEffect {
             if (isUnlockedFlag) // State has been unlocked (now accessible for activation)
             {
                 tsCollider.enabled = true;
+                GetComponent<Renderer>().material.color = ActivationUnlocked;
                 OnUnlockForActivation();
             }
             else // State has been locked (now accessible for activation)
             {
                 tsCollider.enabled = false;
+                GetComponent<Renderer>().material.color = ActivationLocked;
                 OnLockedForActivation();
             }
         }

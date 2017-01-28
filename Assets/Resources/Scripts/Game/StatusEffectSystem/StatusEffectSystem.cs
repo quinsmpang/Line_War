@@ -53,9 +53,6 @@ public class StatusEffectSystem : TrueSyncBehaviour {
             GameObject rseGO = statusEffectPrefabs.GetRange(0, 1)[0];  // FIXME: make this a random selection
             StatusEffect rse = rseGO.GetComponent<StatusEffect>();
             FP rseRadius = rse.GetComponent<TSSphereCollider>().radius;
-
-
-
             GameObject go = TrueSyncManager.SyncedInstantiate(rseGO, findAvailableStatusEffectPosition(rseRadius), TSQuaternion.identity);
             StatusEffect se = go.GetComponent<StatusEffect>();
             spawnedStatusEffects.Add(se);
@@ -122,8 +119,10 @@ public class StatusEffectSystem : TrueSyncBehaviour {
             2. check each status effect against the list of lines to determine if status effect should be enabled or disabled
             3. used the enabled/disabled state to determine how input interaction is handled (to determine if the status effect is responsive)
          */
+        Debug.LogWarning("Spawned Status Effects Count: "+spawnedStatusEffects.Count);
         foreach (StatusEffect se in spawnedStatusEffects)
         {
+            Debug.LogWarning("se: " + se);
             se.OnUpdate();
         }
         

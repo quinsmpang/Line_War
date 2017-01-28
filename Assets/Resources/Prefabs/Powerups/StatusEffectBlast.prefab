@@ -185,6 +185,8 @@ MonoBehaviour:
     name: 
   Name: Blast
   activationLifeSpan: 0
+  ActivationUnlocked: {r: 0, g: 1, b: 0, a: 1}
+  ActivationLocked: {r: 1, g: 0, b: 0, a: 1}
   existanceTimeFrame: 0
   target: 0
   activatedLifetime:

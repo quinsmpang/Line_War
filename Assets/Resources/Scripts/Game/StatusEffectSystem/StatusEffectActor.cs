@@ -43,6 +43,7 @@ public abstract class StatusEffectActor : TrueSyncBehaviour {
         // Remove terminated status effects
         foreach (string statusEffectName in terminatedStatusEffects)
         {
+            Debug.LogWarning("Removing status effect: "+statusEffectName);
             runningStatusEffectsDict.Remove(statusEffectName);
         }
     }

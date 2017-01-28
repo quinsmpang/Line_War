@@ -21,6 +21,11 @@ public abstract class StatusEffect : TrueSyncBehaviour {
     public enum ActivatedTimeFrame { Instant, Duration, Continuous }
     public ActivatedTimeFrame activationLifeSpan;
 
+    [Tooltip("Color of this status effect when unlocked (able to be activated)")]
+    public Color ActivationUnlocked;
+
+    [Tooltip("Color of this status effect when locked (unable to be activated)")]
+    public Color ActivationLocked;
 
     /// <summary>
     /// Selector to determine if this status effect will be available for pickup forever (Eternal) or
