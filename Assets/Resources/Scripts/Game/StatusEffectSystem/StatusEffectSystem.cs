@@ -12,8 +12,8 @@ public class StatusEffectSystem : TrueSyncBehaviour {
 
     public static StatusEffectSystem instance;
 
-    public static List<StatusEffectActor> allStatusEffectActors;
-    public static List<StatusEffect> spawnedStatusEffects;
+    public static List<StatusEffectActor> allStatusEffectActors = new List<StatusEffectActor>();
+    public static List<StatusEffect> spawnedStatusEffects = new List<StatusEffect>();
 
     public FP spawnTimeInterval = 5;
 
@@ -23,11 +23,7 @@ public class StatusEffectSystem : TrueSyncBehaviour {
 
     public void Awake()
     {
-        allStatusEffectActors = new List<StatusEffectActor>();
-        spawnedStatusEffects = new List<StatusEffect>();
         instance = this;
-
-        //Debug.Log("Random value: "+TSRandom.Range(0, 1));
     }
 
 
@@ -87,11 +83,18 @@ public class StatusEffectSystem : TrueSyncBehaviour {
             actor.UpdateEffects();
         }
 
-        // Loop through all spawned status effects
+        // Loop through all unactivated spawned status effects
+        // FIXME: need to incorporate some plan for this
+        /* PLAN:
+            1. -add enabled and disabled states to status effect
+            2. check each status effect against the list of lines to determine if status effect should be enabled or disabled
+            3. used the enabled/disabled state to determine how input interaction is handled (to determine if the status effect is responsive)
+         */
         foreach (StatusEffect se in spawnedStatusEffects)
         {
-
+            se.OnUpdate();
         }
+        
     }
 
 

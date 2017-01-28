@@ -6,6 +6,9 @@ using TrueSync;
 
 public class Line : StatusEffectActor {
 
+    public static List<TSRigidBody> LineList = new List<TSRigidBody>();
+
+
     [SerializeField]
     private FP _currentVelocity;
 
@@ -21,10 +24,5 @@ public class Line : StatusEffectActor {
         _currentVelocity = rbody.angularVelocity.magnitude;
     }
 
-    // FIXME: Check to see if this method is used, remove if not
-    public void OnSyncedCollisionEnter(TSCollision other)
-    {
-        Debug.LogWarning("Collided with: "+other.gameObject.name);
-    }
 
 }

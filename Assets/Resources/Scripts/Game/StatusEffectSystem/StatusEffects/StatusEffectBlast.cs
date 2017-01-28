@@ -4,15 +4,19 @@ using System;
 using TrueSync;
 
 
-public class StatusEffectBlast : StatusEffect {
+public class StatusEffectBlast : LineWarStatusEffect {
 
     public FP blastEffectForce; // amount of force to apply upon activating this effect
     public FP blastPenaltyForce; // amount of force to apply if activated too close to a line
     public bool usesPenalty;
 
     private TSPlayerInfo activationPlayer;  // player who triggered the status effect
-    
 
+
+    public void Awake()
+    {
+        OnUpdate = SetLockOnLineIntersection;
+    }
 
 
     public override void OnSpawn()
@@ -25,6 +29,7 @@ public class StatusEffectBlast : StatusEffect {
         Debug.LogWarning("Status Effect Blast Despawned");
         // FIXME: Rewrite this with a pooling system, to recycle gameObjects.
         // Write a system for generic objects for use with other types.
+        StatusEffectSystem.spawnedStatusEffects.Remove(this);
         TrueSyncManager.SyncedDestroy(gameObject);
     }
 
@@ -62,6 +67,19 @@ public class StatusEffectBlast : StatusEffect {
         Debug.LogWarning("Status Effect Blast, OnDeactivation");
     }
 
+    public override void OnUnlockForActivation()
+    {
+        // This Status Effect has been enabled for activation, switch graphics now
+        Debug.LogWarning("OnUnlockForActivation, time to switch graphics now");
+    }
+
+    public override void OnLockedForActivation()
+    {
+        // This Status Effect has been disabled for activation, switch graphics now
+        Debug.LogWarning("OnLockedForActivation, time to switch graphics now");
+    }
+
+
     public override void OnSyncedTriggerEnter(TSCollision other)
     {
         TapLocationSphereCheck sphereCheck = other.gameObject.GetComponent<TapLocationSphereCheck>();
@@ -80,4 +98,5 @@ public class StatusEffectBlast : StatusEffect {
             }
         }
     }
+
 }

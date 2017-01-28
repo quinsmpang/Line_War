@@ -65,17 +65,25 @@ public abstract class StatusEffect : TrueSyncBehaviour {
     [TextArea(3,10)]
     public string Description;
 
-
-    /// THE FOLLOWING EVENT HANDLERS MUST BE ASSIGNED WHEN THE PLAYER ACTIVATES THE STATUS EFFECT
     /// <summary>
-    /// Method that is called when this status effect is activated (applied status effect to target)
+    /// Method called when this status effect is activated (applied status effect to target)
     /// </summary>
     public abstract void OnActivation();
 
     /// <summary>
-    /// Method that is called when this status effect is terminated (removed status effect from target)
+    /// Method called when this status effect is terminated (removed status effect from target)
     /// </summary>
     public abstract void OnDeactivation();
+
+    /// <summary>
+    /// Method called when this status effect is Unlocked For Activation (when this status effect becomes accessible for activation)
+    /// </summary>
+    public abstract void OnUnlockForActivation();
+
+    /// <summary>
+    /// Method called when this status effect is Locked For Activation (when this status effect becomes no longer accessible for activation)
+    /// </summary>
+    public abstract void OnLockedForActivation();
 
     /// <summary>
     /// Method that is called when this status effect is brought into existance (created/appears in game world)
@@ -92,6 +100,12 @@ public abstract class StatusEffect : TrueSyncBehaviour {
     /// </summary>
     /// <param name="other"></param>
     public abstract void OnSyncedTriggerEnter(TSCollision other);
+
+    /// <summary>
+    /// Method that is called within the OnSyncedUpdate method of StatusEffectSystem
+    /// </summary>
+    /// <returns></returns>
+    public Action OnUpdate;
 
 
     /// <summary>

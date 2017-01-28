@@ -29,7 +29,6 @@ public class Player : StatusEffectActor {
     private static List<Player> _playerList = new List<Player>();  // list of players in game
     private static float[] _intermediateBoundaryAngles = { 45f, 135f, 225f, 315f }; // Angles representing the corners on the screen
     private static GameObject PositionMarkerGO;
-    private static List<TSRigidBody> _lineList = new List<TSRigidBody>();
 
     public static Dictionary<TSPlayerInfo, Player> TSPlayerInfoToPlayerDict = new Dictionary<TSPlayerInfo, Player>();
 
@@ -38,17 +37,18 @@ public class Player : StatusEffectActor {
     private TSRigidBody _tapLocationSphereCheckRB;
 
 
+
     private static void AdjustLineAssignments()
     {
         int playerCount = _playerList.Count;
         for (int i = playerCount - 1; i >= 0; i--)
         {
             if (i == playerCount - 1 && playerCount > 1) // last player gets a special assignment for its line2, unless there's only 1 player
-                _playerList[i]._line2 = _lineList[0].transform;
+                _playerList[i]._line2 = Line.LineList[0].transform;
             else
-                _playerList[i]._line2 = _lineList[i+1].transform;
+                _playerList[i]._line2 = Line.LineList[i+1].transform;
 
-            _playerList[i]._line1 = _lineList[i].transform;
+            _playerList[i]._line1 = Line.LineList[i].transform;
         }
     }
 
@@ -64,9 +64,9 @@ public class Player : StatusEffectActor {
         else
             lineAngle = new FP(360 / _playerList.Count);
 
-        for (int index = 0; index < _lineList.Count; index++)
+        for (int index = 0; index < Line.LineList.Count; index++)
         {
-            TSRigidBody rb = _lineList[index];
+            TSRigidBody rb = Line.LineList[index];
             rb.MovePosition(new TSVector(0,1,0));
             //rb.angularVelocity = TSVector.up;
             rb.tsTransform.rotation = TSQuaternion.AngleAxis(index * lineAngle, TSVector.up);
@@ -91,11 +91,11 @@ public class Player : StatusEffectActor {
         
         if (_playerList.Count == 1)
         {
-            _lineList.Add(TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/prefab_Line") as GameObject, TSVector.up, TSQuaternion.identity).GetComponent<TSRigidBody>());
-            _lineList.Add(TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/prefab_Line") as GameObject, TSVector.up, TSQuaternion.identity).GetComponent<TSRigidBody>());
+            Line.LineList.Add(TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/prefab_Line") as GameObject, TSVector.up, TSQuaternion.identity).GetComponent<TSRigidBody>());
+            Line.LineList.Add(TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/prefab_Line") as GameObject, TSVector.up, TSQuaternion.identity).GetComponent<TSRigidBody>());
         }
         else if (_playerList.Count > 2)
-            _lineList.Add(TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/prefab_Line") as GameObject, TSVector.up, TSQuaternion.identity).GetComponent<TSRigidBody>());
+            Line.LineList.Add(TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/prefab_Line") as GameObject, TSVector.up, TSQuaternion.identity).GetComponent<TSRigidBody>());
 
         if (PositionMarkerGO == null)
             PositionMarkerGO = Resources.Load("Prefabs/prefab_PositionMarker") as GameObject;
@@ -277,18 +277,18 @@ public class Player : StatusEffectActor {
 
     private static void ApplyDragOnLines()
     {
-        for (int index = 0; index < _lineList.Count; index++)
+        for (int index = 0; index < Line. LineList.Count; index++)
         {
-            _lineList[index].angularVelocity = _lineList[index].angularVelocity.normalized * PlayerConfig.Instance.LineFriction.GetVelocity(_lineList[index].angularVelocity.magnitude);
+            Line.LineList[index].angularVelocity = Line.LineList[index].angularVelocity.normalized * PlayerConfig.Instance.LineFriction.GetVelocity(Line.LineList[index].angularVelocity.magnitude);
         }
     }
 
     public static TSRigidBody GetClosestLine(TSVector position)
     {
-        TSRigidBody closestLine = _lineList[0];
+        TSRigidBody closestLine = Line.LineList[0];
         FP closestResult = new FP(-1); // DOT product of -1, farthest possible value to check direction of a vector
 
-        foreach (TSRigidBody thisLine in _lineList)
+        foreach (TSRigidBody thisLine in Line.LineList)
         {
             FP result = TSVector.Dot(thisLine.tsTransform.forward, position.normalized);
 
@@ -314,6 +314,7 @@ public class Player : StatusEffectActor {
 
     public void TapNearLine(TSVector tapLocation)
     {
+        Debug.LogWarning("TAPNEARLINE");
         TSRigidBody lineRB = GetClosestLine(tapLocation);
         if (lineRB.angularVelocity.magnitude > 0) // exit this method if line is moving, can't hit lines while they move
             return;
@@ -334,6 +335,9 @@ public class Player : StatusEffectActor {
 
     }
 
+
+
+
     /// <summary>
     /// OnTapLocation - call this to handle distributing and processing taps across a synchronized network game session
     /// Responds to taps and decides what to do
@@ -344,6 +348,21 @@ public class Player : StatusEffectActor {
         // Handle powerup taps
         GameObject tlsc = TrueSyncManager.SyncedInstantiate(Resources.Load("Prefabs/TapLocationSphereCheck") as GameObject, tapLocation, TSQuaternion.identity);
         tlsc.GetComponent<TapLocationSphereCheck>().Owner = localOwner;
+
+        // Find any status effect that may have been tapped
+        FP shortestDistance = 1000;
+        StatusEffect nearestSe = null;
+        foreach (StatusEffect se in StatusEffectSystem.spawnedStatusEffects)
+        {
+            FP dist = TSVector.Distance(se.tsTransform.position, tapLocation);
+            if (dist <= se.GetComponent<TSSphereCollider>().radius && dist < shortestDistance)
+            {
+                shortestDistance = dist;
+                nearestSe = se;
+            }
+        }
+        if (nearestSe != null) // Found a status effect to handle
+            return; // exit this method to handle status effect within its own framework
 
         // Shows where click took place (position marker):
         GameObject positionMarker = TrueSyncManager.SyncedInstantiate(PositionMarkerGO, tapLocation, TSQuaternion.identity);

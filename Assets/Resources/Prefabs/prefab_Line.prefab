@@ -70,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010875792104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.2955475, y: 0.5, z: 2.394474}
+  m_LocalPosition: {x: 0.18294239, y: 0.45183492, z: 6.6549587}
   m_LocalScale: {x: 1, y: 0.5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -162,11 +162,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _position:
     x:
-      _serializedValue: -9859301376
+      _serializedValue: 785731584
     y:
-      _serializedValue: 2147483648
+      _serializedValue: 1940616192
     z:
-      _serializedValue: 10284187648
+      _serializedValue: 28582830080
   _rotation:
     x:
       _serializedValue: 0
