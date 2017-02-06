@@ -11,15 +11,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f3758f8f58fdef43803eb9be1df0608, type: 3}
   m_Name: PhotonServerSettings
   m_EditorClassIdentifier: 
+  AppID: 3acb3abc-740a-491d-ab93-d84a2489a1e2
+  VoiceAppID: 
+  ChatAppID: 
   HostType: 1
+  PreferredRegion: 0
+  EnabledRegions: -254
   Protocol: 0
   ServerAddress: 
   ServerPort: 5055
-  AppID: 3acb3abc-740a-491d-ab93-d84a2489a1e2
-  PreferredRegion: 0
-  EnabledRegions: -254
+  VoiceServerPort: 5055
   JoinLobby: 0
   EnableLobbyStatistics: 0
+  PunLogging: 0
+  NetworkLogging: 1
+  RunInBackground: 1
   RpcList:
   - Chat
   - DestroyRpc
@@ -35,4 +41,10 @@ MonoBehaviour:
   - OnMatchDataChange
   - StartMatch
   - RequestForPickupItems
+  - ColorRpc
+  - DoJump
+  - Flash
+  - Marco
+  - Polo
+  - TaggedPlayer
   DisableAutoOpenWizard: 1
