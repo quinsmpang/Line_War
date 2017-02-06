@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerLoader : MonoBehaviour {
+	
 	public string[] currentPlayer;
 	public string currentPlayerID;
 	public string currentPlayerType;
@@ -47,4 +48,5 @@ public class PlayerLoader : MonoBehaviour {
 		}
 		return value;
 	}
+
 }

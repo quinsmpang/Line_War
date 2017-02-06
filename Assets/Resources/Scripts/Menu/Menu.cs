@@ -109,7 +109,8 @@ public class Menu : PunBehaviour {
     public void MainPanel_SetLobby(string config) {
 		if (LoginPlayer.loggedin) {
 			this.nickname = nickInput.text;
-			this.nickWelcomeText.text = string.Format ("Welcome {0}", this.nickname);
+//			this.nickWelcomeText.text = string.Format ("Welcome {0}", this.nickname);
+			this.nickWelcomeText.text = string.Format (this.nickname);
 
 			this.nickPanel.SetActive (false);
 			this.mainPanel.SetActive (true);

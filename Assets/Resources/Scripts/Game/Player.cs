@@ -37,7 +37,6 @@ public class Player : StatusEffectActor {
     private TSRigidBody _tapLocationSphereCheckRB;
 
 
-
     private static void AdjustLineAssignments()
     {
         int playerCount = _playerList.Count;
@@ -77,6 +76,7 @@ public class Player : StatusEffectActor {
     void Start()
     {
         _playerList.Add(this);
+
         this.name = "player " + _playerList.Count;
         _characterTS = GameObject.Instantiate(PlayerConfig.Instance.CharacterPrefab).transform;
 
