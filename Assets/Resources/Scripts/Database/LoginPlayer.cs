@@ -25,11 +25,6 @@ public class LoginPlayer : MonoBehaviour {
 			DBData.coinsText = coinsText;
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	IEnumerator LoginToDB (Text playername, Text playerpassword) {
 		WWWForm form = new WWWForm ();

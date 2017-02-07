@@ -8,16 +8,6 @@ public class RegisterPlayer : MonoBehaviour {
 	public Text inputPlayername;
 	public Text inputPlayerpassword;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-
-	// Update is called once per frame
-	void Update () {
-
-	}
-
 	public IEnumerator AddPlayer(string type, Text playername, Text password) {
 		WWWForm form = new WWWForm ();
 		form.AddField ("post_player_type", type);

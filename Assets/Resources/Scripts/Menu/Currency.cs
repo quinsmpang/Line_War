@@ -8,16 +8,6 @@ public class Currency : MonoBehaviour {
 	public Text coins;
 	private int _tempCoins;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
 	public IEnumerator AddCurrency(Text playername, Text playercurrency) {
 		_tempCoins = int.Parse(coins.text);
 		_tempCoins += 10;
@@ -27,7 +17,6 @@ public class Currency : MonoBehaviour {
 		WWWForm form = new WWWForm ();
 		form.AddField ("post_player_name", playername.text);
 		form.AddField ("post_player_currency", playercurrency.text);
-		//form.AddField ("post_player_currency", _tempCoins);
 
 		WWW www = new WWW (AddCurrencyURL, form.data);
 		yield return www;
@@ -35,7 +24,6 @@ public class Currency : MonoBehaviour {
 
 		if (www.text == "DATABASE: Currency added ") {
 			print ("TRANSACTION: Current Coins: " + _tempCoins);
-			//PlayerLoader.instance.GetDataValue (currentPlayername.text, "Currency: ");
 		}
 	}
 
