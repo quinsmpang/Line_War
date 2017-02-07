@@ -125,7 +125,7 @@ public class Menu : PunBehaviour {
 
 	// show multiplayer menu, with options to create or join a match
 	public void MainPanel_MultilayerBtn() {
-		PhotonNetwork.player.name = this.nickname;
+		PhotonNetwork.player.NickName = this.nickname;
         PhotonNetwork.lobby = new TypedLobby(lobbyName, LobbyType.Default);
         PhotonNetwork.ConnectUsingSettings("v1.0");
 
@@ -198,7 +198,7 @@ public class Menu : PunBehaviour {
 
 	// start a match and send the same command to all other players
 	public void MultiplayerPanel_StartMatchBtn() {
-        PhotonNetwork.room.visible = false;
+        PhotonNetwork.room.IsVisible = false;
 
         int syncWindow = int.Parse(configSyncWindow.text);
         int rollbackWindow = int.Parse(configRollbackWindow.text);
@@ -355,7 +355,7 @@ public class Menu : PunBehaviour {
             playerBox.GetComponent<Image>().enabled = true;
 
             Text playerNameText = playerBox.FindChild("PlayerNameText").GetComponent<Text>();
-            playerNameText.text = PhotonNetwork.playerList[index].name.Trim();
+            playerNameText.text = PhotonNetwork.playerList[index].NickName.Trim();
         }		
 	}
 

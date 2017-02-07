@@ -9,7 +9,7 @@ public class SkillLoader : MonoBehaviour {
 		WWW skillsData = new WWW("http://ivocunha.com/linewar/db_getskills.php");
 		yield return skillsData;
 		string skillsDataString = skillsData.text;
-		print ("PlayerSkillLoader: " + skillsDataString);
+		print ("SkillLoader: " + skillsDataString);
 		skillsList = skillsDataString.Split (';');
 		//print (GetDataValue(skillsList[1], "Name: "));
 	}

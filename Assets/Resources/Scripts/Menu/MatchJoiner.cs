@@ -13,7 +13,7 @@ public class MatchJoiner : MonoBehaviour {
 	}
 
 	public void UpdateRoom(RoomInfo room) {
-		this.roomName = room.name;
+		this.roomName = room.Name;
 		btnText.text = this.roomName;
 	}
 

@@ -235,7 +235,7 @@ namespace TrueSync {
                     players.Sort(UnityUtils.playerComparer);
 
                     foreach (PhotonPlayer p in players) {
-                        lockstep.AddPlayer((byte)p.ID, p.name, p.isLocal);
+                        lockstep.AddPlayer((byte)p.ID, p.NickName, p.IsLocal);
                     }
                 }
             }
