@@ -3446,7 +3446,6 @@ GameObject:
   - component: {fileID: 400027853}
   - component: {fileID: 400027856}
   - component: {fileID: 400027857}
-  - component: {fileID: 400027858}
   - component: {fileID: 400027859}
   - component: {fileID: 400027860}
   - component: {fileID: 400027861}
@@ -3592,7 +3591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ef04592ea9301247a40e7ecc189fcda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSkills: []
+  skillsList: []
 --- !u!114 &400027857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3606,18 +3605,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPlayername: {fileID: 51687337}
   coins: {fileID: 1638422222}
---- !u!114 &400027858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 400027848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 438904b21f5e68e4e84c65a8c28c8229, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterSkills: []
 --- !u!114 &400027859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16045,7 +16032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1932781312
 RectTransform:
   m_ObjectHideFlags: 0
