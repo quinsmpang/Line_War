@@ -4,17 +4,26 @@ using UnityEngine.UI;
 
 public class CharacterPicker : MonoBehaviour {
 
-	public GameObject characterList;
-	public Button buttonCharacter;
+	public GameObject characterPanel;
+	public Button buttonCharacterPicker;
 	private bool _isShowing;
+	public Button[] characters;
+
+	void Start() {
+		
+	}
 
 	void OnEnable() {
-		buttonCharacter.onClick.AddListener (ToggleCharacterList);
+		buttonCharacterPicker.onClick.AddListener (ToggleCharacterList);
+		for (int x = 0; x<characters.Length; x++) {
+			characters[x].interactable = false;
+		}
 	}
 
 	void ToggleCharacterList () {
 		_isShowing = !_isShowing;
-		characterList.SetActive(_isShowing);
+		characterPanel.SetActive(_isShowing);
+
 	}
 }
 
