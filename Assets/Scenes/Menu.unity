@@ -1880,7 +1880,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 168105199}
   m_OnClick:
     m_PersistentCalls:
@@ -3255,7 +3255,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 351567986}
   m_OnClick:
     m_PersistentCalls:
@@ -3647,7 +3647,6 @@ GameObject:
   - component: {fileID: 400027857}
   - component: {fileID: 400027859}
   - component: {fileID: 400027860}
-  - component: {fileID: 400027861}
   m_Layer: 0
   m_Name: MenuController
   m_TagString: Untagged
@@ -3834,19 +3833,6 @@ MonoBehaviour:
   buttonCharacterSkill1: {fileID: 537933844}
   buttonCharacterSkill2: {fileID: 1114312560}
   buttonCharacterSkill3: {fileID: 1821088815}
---- !u!114 &400027861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 400027848}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afff2186a12884445b008fcb384dd19f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterPanel: {fileID: 0}
-  buttonCharacterPicker: {fileID: 0}
 --- !u!1 &406394333
 GameObject:
   m_ObjectHideFlags: 0
@@ -4729,7 +4715,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 509704148}
   m_OnClick:
     m_PersistentCalls:
@@ -13228,7 +13214,7 @@ MonoBehaviour:
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1477917410}
   m_OnClick:
     m_PersistentCalls:

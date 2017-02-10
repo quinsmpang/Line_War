@@ -15,9 +15,19 @@ public class CharactersLoader : MonoBehaviour {
 		print ("CharactersLoader: " + charactersDataString);
 		characters = charactersDataString.Split (';');
 		//Debug.LogWarning (GetDataValue(characters[1], "Name: "));
-		Debug.LogWarning ("Total characters: " + characters.Length);
+		//Debug.LogWarning ("Total characters: " + characters.Length);
+		//Debug.LogWarning ("Items in Dictionary: " + CharacterPicker.instance.characterNameToButtonDict.Count);
 		for (int x = 0; x< characters.Length-1; x++) {
-			Debug.LogWarning ("Character from database: " + GetDataValue(characters[x], "Name: "));
+			//Debug.LogWarning ("Character from database: " + GetDataValue(characters[x], "Name: "));
+			string name = GetDataValue (characters [x], "Name: ");
+			if (CharacterPicker.instance.characterNameToButtonDict.ContainsKey(name)) {
+				Debug.LogWarning ("Character from database AVAILABLE on dictionary: " + name + " time for a beer");
+				CharacterPicker.instance.characterNameToButtonDict [GetDataValue (characters [x], "Name: ")].interactable = true;
+			}
+			else {
+				Debug.LogWarning ("Character from database MISSING on dictionary: " + name + " not found!  OH NO, WHAT ARE WE GOING TO DO?!?!?!?!");
+				//CharacterPicker.instance.characterNameToButtonDict [GetDataValue (characters [x], "Name: ")].interactable = false;
+			}
 		}
 	}
 
