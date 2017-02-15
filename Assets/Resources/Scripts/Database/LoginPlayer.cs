@@ -61,12 +61,10 @@ public class LoginPlayer : MonoBehaviour {
 		public string currentPlayerName;
 		public string currentPlayerPassword;
 		public string currentPlayerPlayerIcon;
+		public string currentPlayerActiveCharacter;
 		public string currentPlayerCurrency;
 
-		//public Sprite[] playerIconsList;
-		public Sprite playerIcon;
 		public Text coinsText;
-
 
 		public IEnumerator LoadPlayerData(string playerName) {
 			WWWForm form = new WWWForm ();
@@ -81,10 +79,10 @@ public class LoginPlayer : MonoBehaviour {
 			currentPlayerName = GetDataValue(currentPlayer[0], "Name: ");
 			currentPlayerPassword = GetDataValue(currentPlayer[0], "Password: ");
 			currentPlayerPlayerIcon = GetDataValue(currentPlayer[0], "PlayerIcon: ");
+			currentPlayerActiveCharacter = GetDataValue(currentPlayer[0], "ActiveCharacter: ");
 			currentPlayerCurrency = GetDataValue(currentPlayer[0], "Currency: ");
 
-			// FIXME: Not sure what this is.  Where does playerIconsList get assigned?
-			//playerIcon = playerIconsList[int.Parse(currentPlayerPlayerIcon)];
+			//characterIcon = (currentPlayerActiveCharacter);
 			coinsText.text = (currentPlayerCurrency);
 
 			print ("Current Player ID: " + currentPlayerID);
@@ -92,6 +90,7 @@ public class LoginPlayer : MonoBehaviour {
 			print ("Current Player Name: " + currentPlayerName);
 			print ("Current Player Password: " + currentPlayerPassword);
 			print ("Current Player PlayerIcon: " + currentPlayerPlayerIcon);
+			print ("Current Player ActiveCharacter: " + currentPlayerActiveCharacter);
 			print ("Current Player Currency: " + currentPlayerCurrency);
 		}
 

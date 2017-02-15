@@ -10,6 +10,8 @@ public class CharacterPicker : MonoBehaviour {
 	public Button buttonCharacterPicker;
 	private bool _isShowing;
 	public static CharacterPicker instance;
+	//public Sprite[] characterIconsList;
+	//public Sprite characterIcon;
 
 	public Dictionary<string, Button> characterNameToButtonDict = new Dictionary<string, Button>();
 	// LIST TO DISPLAY IN INSPECTOR
@@ -29,7 +31,8 @@ public class CharacterPicker : MonoBehaviour {
 	}
 
 	void Start() {
-
+		// FIXME: Not sure what this is.  Where does playerIconsList get assigned?
+		//characterIcon = characterIconsList[int.Parse(LoginPlayer.instance.currentPlayerPlayerIcon)];
 	}
 
 	void OnEnable() {

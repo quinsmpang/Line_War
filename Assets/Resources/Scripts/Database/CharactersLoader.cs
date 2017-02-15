@@ -21,11 +21,11 @@ public class CharactersLoader : MonoBehaviour {
 			//Debug.LogWarning ("Character from database: " + GetDataValue(characters[x], "Name: "));
 			string name = GetDataValue (characters [x], "Name: ");
 			if (CharacterPicker.instance.characterNameToButtonDict.ContainsKey(name)) {
-				Debug.LogWarning ("Character from database AVAILABLE on dictionary: " + name + " time for a beer");
+				Debug.Log ("Character from database AVAILABLE on dictionary: " + name);
 				CharacterPicker.instance.characterNameToButtonDict [GetDataValue (characters [x], "Name: ")].interactable = true;
 			}
 			else {
-				Debug.LogWarning ("Character from database MISSING on dictionary: " + name + " not found!  OH NO, WHAT ARE WE GOING TO DO?!?!?!?!");
+				Debug.LogWarning ("Character from database MISSING on dictionary: " + name + " not found!");
 				//CharacterPicker.instance.characterNameToButtonDict [GetDataValue (characters [x], "Name: ")].interactable = false;
 			}
 		}
