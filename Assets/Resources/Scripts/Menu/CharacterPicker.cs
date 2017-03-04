@@ -10,8 +10,9 @@ public class CharacterPicker : MonoBehaviour {
 	public Button buttonCharacterPicker;
 	private bool _isShowing;
 	public static CharacterPicker instance;
-	//public Sprite[] characterIconsList;
-	//public Sprite characterIcon;
+	public Button buttonCharacterBtn;
+	public Image characterIconImg;
+
 
 	public Dictionary<string, Button> characterNameToButtonDict = new Dictionary<string, Button>();
 	// LIST TO DISPLAY IN INSPECTOR
@@ -26,21 +27,28 @@ public class CharacterPicker : MonoBehaviour {
 			// LIST TO DISPLAY IN INSPECTOR
 			//characterButtonList.Add (btn);
 			Debug.Log ("Character added to dictionary: " + btn.name + "");
+			btn.onClick.AddListener (delegate {
+				SelectCharacter (btn);
+			});
 		}
 
+		characterIconImg = gameObject.transform.Find("CharacterIcon").GetComponent<Image> ();
+		Debug.LogWarning (characterIconImg.name);
+	}
+
+	private void SelectCharacter(Button btn) {
+		characterIconImg.sprite = btn.transform.Find("Image").GetComponent<Image> ().sprite;
+		CharacterSelection.instance.CurrentSelection = btn.GetComponent<CharacterSelection> ().prefab;
+		Debug.LogWarning ("Selected Character: " + CharacterSelection.instance.CurrentSelection);
+		//Debug.LogWarning ("Selected Character: " + CharacterSelection.instance.CurrentSelection.name);
 	}
 
 	void Start() {
-		// FIXME: Not sure what this is.  Where does playerIconsList get assigned?
-		//characterIcon = characterIconsList[int.Parse(LoginPlayer.instance.currentPlayerPlayerIcon)];
+		
 	}
 
 	void OnEnable() {
 		buttonCharacterPicker.onClick.AddListener (ToggleCharacterList);
-//		foreach (KeyValuePair<string, Button> entry in characterNameToButtonDict)
-//		{
-//			characterNameToButtonDict [entry.Key].interactable = false;
-//		}
 	}
 
 	void ToggleCharacterList () {

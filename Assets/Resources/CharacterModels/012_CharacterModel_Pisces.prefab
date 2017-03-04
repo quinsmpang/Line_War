@@ -1057,7 +1057,7 @@ GameObject:
   - component: {fileID: 4000011659111798}
   - component: {fileID: 95000010860257082}
   m_Layer: 0
-  m_Name: 012_CharacterIcon_Pisces
+  m_Name: 012_CharacterModel_Pisces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

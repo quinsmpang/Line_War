@@ -1807,7 +1807,7 @@ GameObject:
   - component: {fileID: 4000012927701994}
   - component: {fileID: 95000013692435536}
   m_Layer: 0
-  m_Name: 005_CharacterIcon_Lion
+  m_Name: 005_CharacterModel_Lion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
